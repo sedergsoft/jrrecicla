@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\TipoProducto;
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use kartik\icons\Icon;
@@ -12,7 +13,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <div class="productos-form">
 <div class="row">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
 <div class="col-lg-12"> <?= $form->field($model, 'producto')->textInput(['maxlength' => true]) ?>  </div>
 
@@ -45,7 +46,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
         
            <?php foreach ($TipoProd as $i => $modelTipoProd): ?>
          
-               <div class="itemTipoProd card card-default"><!-- widgetBody -->
+               <div class="itemTipoProd card card-default" style="margin-top: 15px;"><!-- widgetBody -->
                    <div class="card-header">
                        <h3 class="card-title float-start">Tipos de Producto que lo componen</h3>
                        <div class="float-end">
@@ -69,7 +70,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                
                                                             
                            <div class="col-lg-12 col-sm-6">
-                               <?= $form->field($modelTipoProd, "[{$i}]tipo")->textInput()?>
+                               <?= $form->field($modelTipoProd, "[{$i}]tipo_productoid")->widget(kartik\select2\Select2::className(),[
+                        'data'=> yii\helpers\ArrayHelper::map(TipoProducto::find()->andWhere(['status'=>1])->all(), 'id', 'tipo'),
+                        'pluginOptions'=>['placeholder'=>'Selecione el tipo de Producto..'],
+                    ])?>
                       
                            </div>
                        </div>
@@ -84,11 +88,11 @@ use wbraganca\dynamicform\DynamicFormWidget;
            </div>
            <?php DynamicFormWidget::end(); ?>
 
-    <div class="form-group">
+        </div>
+    </div>
+    <div class="form-group" style="padding-top: 15px;">
         <?= Html::submitButton(Icon::show('save', ['class'=>'fa', 'framework' => Icon::FA]).Yii::t('app', 'Guardar'), ['class' => 'btn btn-success']) ?>
     </div>
-     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

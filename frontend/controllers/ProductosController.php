@@ -2,13 +2,20 @@
 
 namespace frontend\controllers;
 
+use Exception;
+use frontend\models\Model;
 use frontend\models\Productos;
 use frontend\models\ProductosSearch;
 use frontend\models\TipoProducto;
+use frontend\models\TipoProductoProductos;
+use frontend\models\TipoProductoProductosSearch;
+use kartik\widgets\ActiveForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\web\Response;
 
 /**
  * ProductosController implements the CRUD actions for Productos model.
@@ -61,8 +68,10 @@ class ProductosController extends Controller
         {
             return $this->redirect(['site/login']);   
         }
-        
         $model=$this->findModel($id);
+        $searchModel = new TipoProductoProductosSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['status'=>1,'tipo_productoid'=>$model->id])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('kv-detail-success', 'La información ha sido guardada correctamente');
@@ -71,7 +80,9 @@ class ProductosController extends Controller
            // Yii::$app->session->setFlash('kv-detail-info', '<b>Note:</b> You can proceed by clicking <a href="#">this link</a>.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('view', [ 'model' => $model]);
+            return $this->render('view', [ 'model' => $model, 
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,]);
         }
     }
 
@@ -83,12 +94,51 @@ class ProductosController extends Controller
     public function actionCreate()
     {
         $model = new Productos();
-        $TipoProd = [new TipoProducto()];
+        $TipoProd = [new TipoProductoProductos()];
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            
+                if ($model->load($this->request->post()) && $model->load(Yii::$app->request->post())) {
+
+                    $TipoProd = Model::createMultiple(TipoProductoProductos::classname());
+                    Model::loadMultiple($TipoProd, Yii::$app->request->post());
+        
+                    // ajax validation
+                    if (Yii::$app->request->isAjax) {
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        return ArrayHelper::merge(
+                            ActiveForm::validateMultiple($TipoProd),
+                            ActiveForm::validate($model)
+                        );
+                    }
+        
+                    // validate all models
+                    $valid = $model->validate();
+                    $valid = Model::validateMultiple($TipoProd) && $valid;
+                    
+                    if ($valid) {
+                        $transaction = \Yii::$app->db->beginTransaction();
+                        try {
+                            if ($flag = $model->save(false)) {
+                                foreach ($TipoProd as $modelProducto) {
+                                    $modelProducto->productosid = $model->id;
+                                    if (! ($flag = $modelProducto->save(false))) {
+                                        $transaction->rollBack();
+                                        break;
+                                    }
+                                }
+                            }
+                            if ($flag) {
+                                $transaction->commit();
+                                return $this->redirect(['view', 'id' => $model->id]);
+                            }
+                        } catch (Exception $e) {
+                            $transaction->rollBack();
+                        }
+                    }
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
-            }
+            
         } else {
             $model->loadDefaultValues();
         }

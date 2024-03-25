@@ -31,7 +31,7 @@ class TipoProductoProductos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo_productoid', 'productosid'], 'required'],
+            [['tipo_productoid'], 'required'],
             [['tipo_productoid', 'productosid', 'status'], 'integer'],
             [['tipo_productoid'], 'exist', 'skipOnError' => true, 'targetClass' => TipoProducto::class, 'targetAttribute' => ['tipo_productoid' => 'id']],
             [['productosid'], 'exist', 'skipOnError' => true, 'targetClass' => Productos::class, 'targetAttribute' => ['productosid' => 'id']],
