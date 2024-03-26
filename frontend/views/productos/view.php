@@ -17,7 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
   
 
-    <?= DetailView::widget([
+ 
+
+<div>
+<?= DetailView::widget([
     'model'=>$model,
     'condensed'=>true,
     'hover'=>true,
@@ -40,14 +43,16 @@ $this->params['breadcrumbs'][] = $this->title;
       'url' => ['delete', 'id' => $model->id],
 ]
     ]) ?>
-    <?= GridView::widget([
+</div>
+<div style="margin-top: 10px;">
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'pjax'=>true,
         'panel' => [
-            'heading'=>'<h3 class="panel-title">'.Icon::show('address-book', ['class'=>'fa', 'framework' => Icon::FA]). $this->title.' </h3>',
-            'type'=>'primary',
+            'heading'=>'<h4 class="panel-title">'.Icon::show('list', ['class'=>'fa', 'framework' => Icon::FA]). 'Tipos de producto que lo componen </h4>',
+            'type'=>'info',
           
-            'before'=>Html::a(Icon::show('plus', ['class'=>'fa', 'framework' => Icon::FA])." Agregar", ['create'], ['class' => 'btn btn-success', 'id'=>'agregar']),
+            //'before'=>Html::a(Icon::show('plus', ['class'=>'fa', 'framework' => Icon::FA])." Agregar", ['create'], ['class' => 'btn btn-success', 'id'=>'agregar']),
            
         ],
 
@@ -56,25 +61,33 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
            // 'id',
-            'tipo',
+           [
+            'attribute'=>'tipo_productoid',
+            'value'=>function($model)
+            {
+             return $model->tipoProducto->tipo;
+            }
+           ],
            // 'status',
-            ['class' => 'yii\grid\ActionColumn',
-            'template'=>'{view}',
-            'buttons' => [
+           // ['class' => 'yii\grid\ActionColumn',
+            // 'template'=>'{view}',
+            // 'buttons' => [
                  
-                'view' => function ($url, $data){
+            //     'view' => function ($url, $data){
                                                       
-                                                          return Html::a('<i class="fa fa-eye"></i>', 
-                                                                  ['view','id'=>$data['id']],
+            //                                               return Html::a('<i class="fa fa-eye"></i>', 
+            //                                                       ['view','id'=>$data['id']],
                                                                   
-                                                                  ['class' => 'btn btn-info btn-xs',
-                                                                    'title' => 'Ver'  
-                                                                      ]);
+            //                                                       ['class' => 'btn btn-info btn-xs',
+            //                                                         'title' => 'Ver'  
+            //                                                           ]);
                                                       
-                                                       }, 
-            ],
-            ],
+            //                                            }, 
+            // ],
+            // ],
         ],
     ]); ?>
+</div>
+    
 
 </div>

@@ -1,19 +1,19 @@
 <?php
 
-use frontend\models\GrupoHotelero;
+use frontend\models\Solicitud;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\icons\Icon;
 use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var frontend\models\GrupoHoteleroSearch $searchModel */
+/** @var frontend\models\SolicitudSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Grupos Hoteleros';
+$this->title = Yii::t('app', 'Solicitudes');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="grupo-hotelero-index">
+<div class="solicitud-index">
 
   
 
@@ -34,9 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           //    'id',
-            'grupo',
-          //  'status',
+           // 'id',
+            'fecha_rec',
+            'fecha_aprob',
+            'fecha_ejec',
+            //'status',
+            'clienteid',
+            'tipo_estado_solicitudid',
             ['class' => 'yii\grid\ActionColumn',
             'template'=>'{view}',
             'buttons' => [

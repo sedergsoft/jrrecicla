@@ -17,14 +17,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 <div class="col-lg-12"> <?= $form->field($model, 'producto')->textInput(['maxlength' => true]) ?>  </div>
 
-<div class="col-lg-12"> <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>  </div>
+<div class="col-lg-12"> <?= $form->field($model, 'descripcion')->textarea(['row' => 3]) ?>  </div>
+<div class="row">
 
-<div class="col-lg-12"> <?= $form->field($model, 'um')->textInput(['maxlength' => true]) ?>  </div>
-
-<div class="col-lg-12"> <?= $form->field($model, 'precio')->textInput(['maxlength' => true]) ?>  </div>
+    <div class="col-lg-6"> <?= $form->field($model, 'um')->textInput(['maxlength' => true]) ?>  </div>
+    
+    <div class="col-lg-6"> <?= $form->field($model, 'precio')->textInput(['maxlength' => true]) ?>  </div>
+</div>
 
 <div class="card card-info">
-       <div class="card-header" align = "center"><h4><i class="glyphicon glyphicon-download-alt"></i> TipoProd de la Posible Solución </h4></div>
+       <div class="card-header" align = "center"><h4><i class="glyphicon glyphicon-download-alt"></i> Tipos de Producto que lo componen </h4></div>
        <div class="card-body">
             <?php DynamicFormWidget::begin([
                'widgetContainer' => 'dynamicform_wrapperTipoProd', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -48,7 +50,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
          
                <div class="itemTipoProd card card-default" style="margin-top: 15px;"><!-- widgetBody -->
                    <div class="card-header">
-                       <h3 class="card-title float-start">Tipos de Producto que lo componen</h3>
+                       <h3 class="card-title float-start">Tipos de Producto </h3>
                        <div class="float-end">
                            <button type="button" class="add-itemTipoProd btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
                            <button type="button" class="remove-itemTipoProd btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
@@ -89,7 +91,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
            <?php DynamicFormWidget::end(); ?>
 
         </div>
-    </div>
+</div>
     <div class="form-group" style="padding-top: 15px;">
         <?= Html::submitButton(Icon::show('save', ['class'=>'fa', 'framework' => Icon::FA]).Yii::t('app', 'Guardar'), ['class' => 'btn btn-success']) ?>
     </div>
