@@ -22,6 +22,11 @@ return [
                           
                         ],
                     ],
+                    'formatter' => [
+                        'currencyCode' => 'CUP',
+                        'locale' => 'ru-RU',
+                        'numberFormatterSymbols'=>'$',
+                      ],
     ],
     'modules' => [
         'rbac' => [
