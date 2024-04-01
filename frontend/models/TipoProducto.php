@@ -42,7 +42,7 @@ class TipoProducto extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'tipo' => Yii::t('app', 'Tipo'),
+            'tipo' => Yii::t('app', 'Tipo de Producto'),
             'status' => Yii::t('app', 'Status'),
         ];
     }

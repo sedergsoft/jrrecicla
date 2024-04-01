@@ -4,7 +4,9 @@ use frontend\models\Cargos;
 use frontend\models\GrupoHotelero;
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use Mpdf\Tag\Details;
 use yii\helpers\ArrayHelper;
+use yii\widgets\MaskedInput;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\Cliente $model */
@@ -32,8 +34,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'instalacion',
             'direccion',
             'representante',
-            'email:email',
-            'telefono',
+            
+            [
+             'attribute'=>'email',
+             'value'=>$model->email,
+             'type'=>DetailView::INPUT_WIDGET,
+                'widgetOptions'=>[
+                   'class'=> MaskedInput::className(),
+                   'clientOptions' => ['alias' =>  'email']
+                ],   
+            ],
+            [
+             'attribute'=>'telefono',
+             'value'=>$model->telefono,
+             'type'=>DetailView::INPUT_WIDGET,
+                'widgetOptions'=>[
+                   'class'=> MaskedInput::className(),
+                   'clientOptions' => ['alias' =>  '+999-999-9999']
+                ],   
+            ],
            // 'status',
            [
             'attribute' =>  'cargosid',

@@ -49,13 +49,16 @@ AppAsset::register($this);
                                                     ['label' => 'Cargos', 'url' => ['/cargos/index']],
                                                     ['label' => 'Clientes', 'url' => ['/cliente/index']],
                                                     ['label' => 'Tipo de Productos', 'url' => ['/tipo-producto/index']],
+                                                    ['label' => 'Productos', 'url' => ['/productos/index']],
+                                                    ['label' => 'Solicitudes', 'url' => ['/solicitud/index']],
                                         
                                               ]
                                ];
-                $menuItems[] = ['label' => 'Proyectos',
+                $menuItems[] = ['label' => 'Solicitudes',
                             'items' =>[
                
-                                             // ['label' => 'Sub-Norma', 'url' => ['/subnorma/index']],
+                                              ['label' => 'Nuevas Solicitudes', 'url' => ['/solicitudes/nuevas']],
+                                              ['label' => 'Solicitudes Aprobadas', 'url' => ['/solicitudes/aprobadas']],
 //                                            ['label' => 'Elemento', 'url' => ['/elemento/index']],
                                  //['label' => 'Compromiso', 'url' => ['/compromiso/index']],
                                  // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],

@@ -34,13 +34,50 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           // 'id',
-            'fecha_rec',
-            'fecha_aprob',
-            'fecha_ejec',
+            'id',
+            [
+                'attribute'=>'clienteid',
+                'value'=>function($model)
+                {
+                    return $model->cliente->instalacion;
+                }
+
+            ],
+            'fecha_solic',
+           // 'fecha_aprob',
+           // 'fecha_ejec',
             //'status',
-            'clienteid',
-            'tipo_estado_solicitudid',
+            [
+                'attribute'=>'tipo_estado_solicitudid',
+                'format'=>'raw',
+                'value'=>function($model)
+                {
+                    switch ($model->tipo_estado_solicitudid) {
+                        case '1':
+                            return '<h4><span class="badge text-bg-info">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            break;
+                        case '2':
+                            return '<h4><span class="badge text-bg-primary">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            break;
+                        case '3':
+                            return '<h4><span class="badge text-bg-warning">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            break;
+                        case '4':
+                            return '<h4><span class="badge text-bg-success">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            break;
+                        case '5':
+                            return '<h4><span class="badge text-bg-danger">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
+                    }
+                   
+                }
+
+            ],
+           
             ['class' => 'yii\grid\ActionColumn',
             'template'=>'{view}',
             'buttons' => [
@@ -48,10 +85,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'view' => function ($url, $data){
                                                       
                                                           return Html::a('<i class="fa fa-eye"></i>', 
-                                                                  ['view','id'=>$data['id']],
+                                                                  ['detalles','id'=>$data['id']],
                                                                   
                                                                   ['class' => 'btn btn-info btn-xs',
-                                                                    'title' => 'Ver'  
+                                                                    'title' => 'Ver detalles de Solicitud'  
                                                                       ]);
                                                       
                                                        }, 

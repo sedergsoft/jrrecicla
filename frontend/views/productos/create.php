@@ -10,10 +10,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Productos'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="productos-create">
-    <div class="card">
-        <div class="card-header">
+    <div class="card border-info">
+        <div class="card-header w-auto  bg-info">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
     </div>
   <div class="card-body">
     <h5 class="card-title"></h5>

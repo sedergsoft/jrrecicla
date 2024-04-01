@@ -4,6 +4,7 @@ use frontend\models\TipoProducto;
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use kartik\icons\Icon;
+use kartik\touchspin\TouchSpin;
 use wbraganca\dynamicform\DynamicFormWidget;
 
 /** @var yii\web\View $this */
@@ -22,7 +23,23 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <div class="col-lg-6"> <?= $form->field($model, 'um')->textInput(['maxlength' => true]) ?>  </div>
     
-    <div class="col-lg-6"> <?= $form->field($model, 'precio')->textInput(['maxlength' => true]) ?>  </div>
+    <div class="col-lg-6"> <?= $form->field($model, 'precio')->widget(TouchSpin::classname(), [
+        'pluginOptions' => [
+            'initval' => 3.00,
+            'min' => 0,
+            'max' => 100,
+            'step' => 0.1,
+            'decimals' => 2,
+            'boostat' => 5,
+            'maxboostedstep' => 10,
+            'prefix' => '$',
+            'buttonup_class' => 'btn btn-primary', 
+            'buttondown_class' => 'btn btn-danger', 
+            'buttonup_txt' => '<i class="fas fa-plus-circle"></i>', 
+            'buttondown_txt' => '<i class="fas fa-minus-circle"></i>'
+        ],
+    'options' => ['placeholder' => 'Ajuste ...'],
+]); ?>  </div>
 </div>
 
 <div class="card card-info">
@@ -40,6 +57,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                'formId' => 'dynamic-form',
                'formFields' => [
                    'tipo_productoid',
+                   'cant',
                    
                ],
            ]); ?>
@@ -50,7 +68,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
          
                <div class="itemTipoProd card card-default" style="margin-top: 15px;"><!-- widgetBody -->
                    <div class="card-header">
-                       <h3 class="card-title float-start">Tipos de Producto </h3>
+                       <h3 class="card-title float-start">Tipo de Producto </h3>
                        <div class="float-end">
                            <button type="button" class="add-itemTipoProd btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
                            <button type="button" class="remove-itemTipoProd btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
@@ -71,11 +89,15 @@ use wbraganca\dynamicform\DynamicFormWidget;
                            
                                
                                                             
-                           <div class="col-lg-12 col-sm-6">
+                           <div class="col-lg-6 col-sm-6">
                                <?= $form->field($modelTipoProd, "[{$i}]tipo_productoid")->widget(kartik\select2\Select2::className(),[
                         'data'=> yii\helpers\ArrayHelper::map(TipoProducto::find()->andWhere(['status'=>1])->all(), 'id', 'tipo'),
                         'pluginOptions'=>['placeholder'=>'Selecione el tipo de Producto..'],
                     ])?>
+                      
+                           </div>
+                           <div class="col-lg-6 col-sm-6">
+                               <?= $form->field($modelTipoProd, "[{$i}]cant")->textInput(['maxlength' => true])?>
                       
                            </div>
                        </div>

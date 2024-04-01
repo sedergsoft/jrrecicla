@@ -42,7 +42,7 @@ class GrupoHotelero extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'grupo' => Yii::t('app', 'Grupo'),
+            'grupo' => Yii::t('app', 'Grupo Hotelero'),
             'status' => Yii::t('app', 'Status'),
         ];
     }

@@ -71,7 +71,7 @@ class ProductosController extends Controller
         $model=$this->findModel($id);
         $searchModel = new TipoProductoProductosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        $dataProvider->query->andWhere(['status'=>1,'tipo_productoid'=>$model->id])->all();
+        $dataProvider->query->andWhere(['status'=>1,'productosid'=>$model->id])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('kv-detail-success', 'La información ha sido guardada correctamente');

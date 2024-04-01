@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int $tipo_productoid
  * @property int $productosid
+ * @property float $cant
  * @property int $status
  *
  * @property Productos $productos
@@ -31,7 +32,8 @@ class TipoProductoProductos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo_productoid'], 'required'],
+            [['tipo_productoid','cant'], 'required'],
+            [['cant'], 'number'],
             [['tipo_productoid', 'productosid', 'status'], 'integer'],
             [['tipo_productoid'], 'exist', 'skipOnError' => true, 'targetClass' => TipoProducto::class, 'targetAttribute' => ['tipo_productoid' => 'id']],
             [['productosid'], 'exist', 'skipOnError' => true, 'targetClass' => Productos::class, 'targetAttribute' => ['productosid' => 'id']],
@@ -45,8 +47,9 @@ class TipoProductoProductos extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'tipo_productoid' => Yii::t('app', 'Tipo Productoid'),
-            'productosid' => Yii::t('app', 'Productosid'),
+            'tipo_productoid' => Yii::t('app', 'Tipo de Producto'),
+            'productosid' => Yii::t('app', 'Producto'),
+            'cant' => Yii::t('app', 'Cantidad (g)'),
             'status' => Yii::t('app', 'Status'),
         ];
     }

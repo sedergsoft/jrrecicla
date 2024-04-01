@@ -18,6 +18,7 @@ class TipoProductoProductosSearch extends TipoProductoProductos
     {
         return [
             [['id', 'tipo_productoid', 'productosid', 'status'], 'integer'],
+            [['cant'], 'number'],
         ];
     }
 
@@ -61,6 +62,7 @@ class TipoProductoProductosSearch extends TipoProductoProductos
             'tipo_productoid' => $this->tipo_productoid,
             'productosid' => $this->productosid,
             'status' => $this->status,
+            'cant' => $this->cant,
         ]);
 
         return $dataProvider;

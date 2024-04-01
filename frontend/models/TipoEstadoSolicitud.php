@@ -42,7 +42,7 @@ class TipoEstadoSolicitud extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'estado' => Yii::t('app', 'Estado'),
+            'estado' => Yii::t('app', 'Estado de Solicitud'),
             'status' => Yii::t('app', 'Status'),
         ];
     }

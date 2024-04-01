@@ -42,6 +42,8 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'login'=>'site/login',
+                'solicitudes/nuevas'=>'solicitud/nuevasolicitudes',
+                'solicitudes/aprobadas'=>'solicitud/aprobadas',
                 '<controller:[\w-]+>' => '<controller>/index',
                 '<controller:[\w-]+>/<id:\d+>'=> '<controller>/view',
             ],

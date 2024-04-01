@@ -68,6 +68,10 @@ $this->params['breadcrumbs'][] = $this->title;
              return $model->tipoProducto->tipo;
             }
            ],
+           [
+            'attribute'=>'cant',
+            
+           ],
            // 'status',
            // ['class' => 'yii\grid\ActionColumn',
             // 'template'=>'{view}',

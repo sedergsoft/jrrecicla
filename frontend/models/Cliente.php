@@ -55,14 +55,14 @@ class Cliente extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'instalacion' => Yii::t('app', 'Instalacion'),
-            'direccion' => Yii::t('app', 'Direccion'),
+            'instalacion' => Yii::t('app', 'Instalación'),
+            'direccion' => Yii::t('app', 'Dirección'),
             'representante' => Yii::t('app', 'Representante'),
             'email' => Yii::t('app', 'Email'),
-            'telefono' => Yii::t('app', 'Telefono'),
+            'telefono' => Yii::t('app', 'Teléfono'),
             'status' => Yii::t('app', 'Status'),
-            'cargosid' => Yii::t('app', 'Cargosid'),
-            'grupo_hoteleroid' => Yii::t('app', 'Grupo Hoteleroid'),
+            'cargosid' => Yii::t('app', 'Cargo'),
+            'grupo_hoteleroid' => Yii::t('app', 'Grupo Hotelero'),
         ];
     }
 

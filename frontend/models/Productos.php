@@ -50,8 +50,8 @@ class Productos extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'producto' => Yii::t('app', 'Producto'),
-            'descripcion' => Yii::t('app', 'Descripcion'),
-            'um' => Yii::t('app', 'Um'),
+            'descripcion' => Yii::t('app', 'Descripción'),
+            'um' => Yii::t('app', 'UM'),
             'precio' => Yii::t('app', 'Precio'),
             'status' => Yii::t('app', 'Status'),
         ];

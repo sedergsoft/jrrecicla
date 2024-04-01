@@ -45,8 +45,8 @@ class ProductosSolicitud extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'productosid' => Yii::t('app', 'Productosid'),
-            'solicitudid' => Yii::t('app', 'Solicitudid'),
+            'productosid' => Yii::t('app', 'Productos'),
+            'solicitudid' => Yii::t('app', 'Solicitud'),
             'cant' => Yii::t('app', 'Cant'),
         ];
     }
