@@ -6,6 +6,7 @@ use Exception;
 use frontend\models\Model;
 use frontend\models\ProductosSolicitud;
 use frontend\models\ProductosSolicitudSearch;
+use frontend\models\Recogida;
 use frontend\models\Solicitud;
 use frontend\models\SolicitudSearch;
 use frontend\models\TipoProducto;
@@ -131,6 +132,18 @@ class SolicitudController extends Controller
         ]);
 
     }
+    public function actionPendiente()
+    {
+        $searchModel = new SolicitudSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['status'=>1,'tipo_estado_solicitudid'=>3])->all();
+
+        return $this->render('pendientes', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
     public function actionAccion($id,$tipo)
     {
         $solicitud = $this->findmodel($id);
@@ -139,21 +152,25 @@ class SolicitudController extends Controller
 
             switch ($tipo) {
                 case '2':
-                $solicitud->updateAttributes(['tipo_estado_solicitudid'=>2,'fecha_aprob'=>date('Y-m-d')]);
-                
-                $this->Notificarestado($solicitud);
-                return $this->redirect(['detalles','id'=>$solicitud->id]);
-                break;
+                    $solicitud->updateAttributes(['tipo_estado_solicitudid'=>2,'fecha_aprob'=>date('Y-m-d')]);
+                    
+                    $this->Notificarestado($solicitud);
+                    return $this->redirect(['detalles','id'=>$solicitud->id]);
+                    break;
                 case '1':
                 $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
-                $this->Notificarestado($solicitud);
-                return $this->redirect(['detalles','id'=>$solicitud->id]);
-                break;
+                    $this->Notificarestado($solicitud);
+                    return $this->redirect(['detalles','id'=>$solicitud->id]);
+                    break;
                 case '4':
-                $solicitud->updateAttributes(['tipo_estado_solicitudid'=>3,'fecha_rec'=>date('Y-m-d')]);
-                $this->Notificarestado($solicitud);
-                return $this->redirect(['detalles','id'=>$solicitud->id]);
-                break;
+                
+                    return $this->redirect(['recogida/create','idsolicitud'=>$solicitud->id]);
+                    break;
+                case '5':
+                    $solicitud->updateAttributes(['tipo_estado_solicitudid'=>4,'fecha_ejec'=>date('Y-m-d')]);
+                    $this->Notificarestado($solicitud);
+                    return $this->redirect(['detalles','id'=>$solicitud->id]);
+                    break;
                 
                 default:
                 # code...
@@ -290,14 +307,27 @@ class SolicitudController extends Controller
 
     public function Obtenerproductos($id)
     {
-       $productos = TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$id])->all();
-       return $productos;
+        $productos = TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$id])->all();
+        return $productos;
     
     }
 
-    public function Notificarestado($solicitud)
+    public static function Notificarestado($solicitud,$tipo = NULL)
     {
-        
+       if($tipo == 2)
+       {
+        $recogida=Recogida::find()->andWhere(['status'=>1,'solicitudid'=>$solicitud->id])->one();
+        return Yii::$app
+        ->mailer
+        ->compose(
+            ['html' => 'Solicitud_estado-trans-html', 'text' => 'Solicitud_estado-trans-text'],
+            ['solicitud' => $solicitud,'recogida'=>$recogida]
+        )
+        ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+        ->setTo($solicitud->cliente->email)
+        ->setSubject('Cambio de estado de la Solicitud ' . Yii::$app->name)
+        ->send();
+       } 
         return Yii::$app
         ->mailer
         ->compose(

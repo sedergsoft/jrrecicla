@@ -59,6 +59,7 @@ AppAsset::register($this);
                
                                               ['label' => 'Nuevas Solicitudes', 'url' => ['/solicitudes/nuevas']],
                                               ['label' => 'Solicitudes Aprobadas', 'url' => ['/solicitudes/aprobadas']],
+                                              ['label' => 'Solicitudes Pendientes', 'url' => ['/solicitudes/pendientes']],
 //                                            ['label' => 'Elemento', 'url' => ['/elemento/index']],
                                  //['label' => 'Compromiso', 'url' => ['/compromiso/index']],
                                  // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],
