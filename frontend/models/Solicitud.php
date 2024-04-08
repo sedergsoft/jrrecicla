@@ -52,9 +52,10 @@ class Solicitud extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fecha_rec' => Yii::t('app', 'Fecha Recepción'),
-            'fecha_aprob' => Yii::t('app', 'Fecha Aprobación'),
-            'fecha_ejec' => Yii::t('app', 'Fecha Ejececución'),
+            'fecha_rec' => Yii::t('app', 'Fecha de Recepción'),
+            'fecha_solic' => Yii::t('app', 'Fecha de Solicitada'),
+            'fecha_aprob' => Yii::t('app', 'Fecha de Aprobación'),
+            'fecha_ejec' => Yii::t('app', 'Fecha de Ejececución'),
             'status' => Yii::t('app', 'Status'),
             'clienteid' => Yii::t('app', 'Cliente'),
             'tipo_estado_solicitudid' => Yii::t('app', 'Estado de Solicitud'),

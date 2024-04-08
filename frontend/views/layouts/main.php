@@ -42,7 +42,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
     }else{
         if(Yii::$app->user->identity->rolid == "1")//menu que se muestra para el usuario SuperAdmin
-             {
+                {
                 $menuItems[] = ['label' => 'Gestionar',
                                     'items' =>[
                                                     ['label' => 'Grupos Hoteleros', 'url' => ['/grupo-hotelero/index']],
@@ -51,6 +51,7 @@ AppAsset::register($this);
                                                     ['label' => 'Tipo de Productos', 'url' => ['/tipo-producto/index']],
                                                     ['label' => 'Productos', 'url' => ['/productos/index']],
                                                     ['label' => 'Solicitudes', 'url' => ['/solicitud/index']],
+                                                    ['label' => 'Transportistas', 'url' => ['/transportista/index']],
                                         
                                               ]
                                ];
@@ -60,10 +61,13 @@ AppAsset::register($this);
                                               ['label' => 'Nuevas Solicitudes', 'url' => ['/solicitudes/nuevas']],
                                               ['label' => 'Solicitudes Aprobadas', 'url' => ['/solicitudes/aprobadas']],
                                               ['label' => 'Solicitudes Pendientes', 'url' => ['/solicitudes/pendientes']],
-//                                            ['label' => 'Elemento', 'url' => ['/elemento/index']],
+                                              ['label' => 'Solicitudes Rechazadas', 'url' => ['/solicitudes/rechazadas']],
+                                              ['label' => 'Historial ', 'url' => ['/solicitudes/historial']],
+                                              ],
+                    //             ['label' => 'Elemento', 'url' => ['/elemento/index']],
                                  //['label' => 'Compromiso', 'url' => ['/compromiso/index']],
                                  // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],
-                                      ]
+                                    //  ]
                        ];
             
                 
@@ -94,7 +98,66 @@ AppAsset::register($this);
                  
              
                                  
-             }
+             }  
+             if(Yii::$app->user->identity->rolid == "2")//menu que se muestra para el usuario SuperAdmin
+             {
+            //  $menuItems[] = ['label' => 'Gestionar',
+            //                      'items' =>[
+            //                                      ['label' => 'Grupos Hoteleros', 'url' => ['/grupo-hotelero/index']],
+            //                                      ['label' => 'Cargos', 'url' => ['/cargos/index']],
+            //                                      ['label' => 'Clientes', 'url' => ['/cliente/index']],
+            //                                      ['label' => 'Tipo de Productos', 'url' => ['/tipo-producto/index']],
+            //                                      ['label' => 'Productos', 'url' => ['/productos/index']],
+            //                                      ['label' => 'Solicitudes', 'url' => ['/solicitud/index']],
+            //                                      ['label' => 'Transportistas', 'url' => ['/transportista/index']],
+                                     
+            //                                ]
+            //                 ];
+             $menuItems[] = ['label' => 'Solicitudes',
+                         'items' =>[
+            
+                                        ['label' => 'Ver Solicitudes', 'url' => ['/solicitudes/todas']],
+                                        ['label' => 'Nueva Solicitud', 'url' => ['/solicitudes/nueva']],
+                                        ['label' => 'Solicitudes Aprobadas', 'url' => ['/solicitudes/aprobadas']],
+                                        ['label' => 'Solicitudes Pendientes', 'url' => ['/solicitudes/pendientes']],
+                                        ['label' => 'Solicitudes Rechazadas', 'url' => ['/solicitudes/rechazadas']],
+                                        ['label' => 'Historial ', 'url' => ['/solicitudes/historial']],
+                                    ],
+                 //             ['label' => 'Elemento', 'url' => ['/elemento/index']],
+                              //['label' => 'Compromiso', 'url' => ['/compromiso/index']],
+                              // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],
+                                 //  ]
+                    ];
+         
+             
+            $menuItems[] = ['label' => 'Reportes',
+                         'items' =>[
+                           //['label' => 'Información General por Empresa', 'url' => ['/reporte/general']],
+                              // ['label' => 'Agregar Plato', 'url' => ['/plato/create']],
+                                   ]
+                    ];
+             $menuItems[] = ['label' => 'Seguridad',
+                         'items' =>[
+                              // ['label' => 'Usuarios', 'url' => ['/user/index']],
+             //                 ['label' => 'Asignar Permisos', 'url' => ['/rbac/assignment']],
+                               ['label'=> 'Cambiar contraseña' , 'url' => ['/user/password','id'=> Yii::$app->user->getId()]],
+                         //    ['label'=> 'Base de datos' , 'url' => ['/backuprestore/index']],
+                             
+                            ]]; 
+             $menuItems[] = ['label' => 'Ayuda',
+                         'items' =>[
+                             ['label' => 'Manual de Usurio', 'url' => ['/site/manual']],
+                               ['label' => 'Documentos Rectores', 'url' => ['/documentos/index']],
+             //                 ['label' => 'Asignar Permisos', 'url' => ['/rbac/assignment']],
+                              // ['label'=> 'Cambiar contraseña' , 'url' => ['/user/password','id'=> Yii::$app->user->getId()]],
+                         //    ['label'=> 'Base de datos' , 'url' => ['/backuprestore/index']],
+                             
+                            ]]; 
+  
+              
+          
+                              
+          }                    
     }
 
     echo Nav::widget([

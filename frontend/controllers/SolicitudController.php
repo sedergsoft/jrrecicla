@@ -51,6 +51,10 @@ class SolicitudController extends Controller
     {
         $searchModel = new SolicitudSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -113,7 +117,10 @@ class SolicitudController extends Controller
         $searchModel = new SolicitudSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
         $dataProvider->query->andWhere(['status'=>1,'tipo_estado_solicitudid'=>1])->all();
-
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
         return $this->render('new', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -125,8 +132,41 @@ class SolicitudController extends Controller
         $searchModel = new SolicitudSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
         $dataProvider->query->andWhere(['status'=>1,'tipo_estado_solicitudid'=>2])->all();
-
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
         return $this->render('aprobadas', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+    public function actionHistorial()
+    {
+        $searchModel = new SolicitudSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['status'=>1,'tipo_estado_solicitudid'=>4])->all();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
+        return $this->render('historial', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+    public function actionRechazadas()
+    {
+        $searchModel = new SolicitudSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['status'=>1,'tipo_estado_solicitudid'=>5])->all();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
+        return $this->render('rechazadas', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -137,7 +177,10 @@ class SolicitudController extends Controller
         $searchModel = new SolicitudSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
         $dataProvider->query->andWhere(['status'=>1,'tipo_estado_solicitudid'=>3])->all();
-
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
         return $this->render('pendientes', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

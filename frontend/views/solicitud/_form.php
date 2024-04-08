@@ -1,11 +1,14 @@
 <?php
 
+use frontend\controllers\UserController;
 use frontend\models\Cliente;
 use frontend\models\Productos;
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use kartik\icons\Icon;
+use kartik\select2\Select2;
 use wbraganca\dynamicform\DynamicFormWidget;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\Solicitud $model */
@@ -20,8 +23,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 
 
-<div class="col-lg-12"> <?= $form->field($model, 'clienteid')->widget(kartik\select2\Select2::className(),[
-                        'data'=> yii\helpers\ArrayHelper::map(Cliente::find()->andWhere(['status'=>1])->all(), 'id', 'instalacion'),
+<div class="col-lg-12"> <?= $form->field($model, 'clienteid')->widget(Select2::className(),[
+                        'data'=> Yii::$app->user->identity->rolid==1?ArrayHelper::map(Cliente::find()->andWhere(['status'=>1])->all(), 'id', 'instalacion'):ArrayHelper::map(Cliente::find()->andWhere(['status'=>1])->andWhere(['id'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all(), 'id', 'instalacion'),
                         'pluginOptions'=>['placeholder'=>'Selecione el cliente..'],
                     ])?>  </div>
 
@@ -97,7 +100,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
         </div>
 </div>
 
-    <div class="form-group">
+    <div class="form-group" style="margin-top: 15px;">
         <?= Html::submitButton(Icon::show('save', ['class'=>'fa', 'framework' => Icon::FA]).Yii::t('app', 'Guardar'), ['class' => 'btn btn-success']) ?>
     </div>
      </div>
