@@ -203,7 +203,12 @@ class SolicitudController extends Controller
                 case '1':
                 $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
                     $this->Notificarestado($solicitud);
-                    return $this->redirect(['detalles','id'=>$solicitud->id]);
+                    return $this->redirect(['solicitudes/todas']);
+                    break;
+                case '3':
+                $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
+                    $this->Notificarestado($solicitud);
+                    return $this->redirect(['solicitudes/todas']);
                     break;
                 case '4':
                 

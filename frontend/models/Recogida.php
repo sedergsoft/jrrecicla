@@ -49,7 +49,7 @@ class Recogida extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'transportistaid' => Yii::t('app', 'Transportistaid'),
             'solicitudid' => Yii::t('app', 'Solicitudid'),
-            'fecha_recogida' => Yii::t('app', 'Fecha Recogida'),
+            'fecha_recogida' => Yii::t('app', 'Fecha Probable de Recogida'),
             'status' => Yii::t('app', 'Status'),
         ];
     }

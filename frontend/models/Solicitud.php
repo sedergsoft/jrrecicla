@@ -92,4 +92,15 @@ class Solicitud extends \yii\db\ActiveRecord
         return $this->hasOne(TipoEstadoSolicitud::class, ['id' => 'tipo_estado_solicitudid']);
     }
    
+    public function getRecogida()
+    {
+        if($this->tipo_estado_solicitudid==3)
+        {
+
+            $recogida = Recogida::find()->andWhere(['status'=>1,'solicitudid'=>$this->id])->one();
+            return $recogida;
+        }else{
+            return FALSE;
+        }
+    }
 }

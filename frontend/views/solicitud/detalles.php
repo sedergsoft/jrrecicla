@@ -161,4 +161,51 @@ $this->params['breadcrumbs'][] = $this->title;
             // ],
         ],
     ]); ?>
+    <?php
+    if( $modelSolicitud->tipo_estado_solicitudid==3 )
+    {
+        echo DetailView::widget([
+            'model'=>$model = $modelSolicitud->getRecogida(),
+            'condensed'=>true,
+            'hover'=>true,
+            'mode'=>DetailView::MODE_VIEW,
+            'panel'=>[
+                'heading'=>'Recogida programada para '.$this->title,
+                'type'=>DetailView::TYPE_INFO,
+            ],
+            'attributes'=>[
+                   // 'id',
+                   [
+                       'attribute' =>  'fecha_recogida',
+                       // 'label' => 'sexo ',
+                        'value'=> $model->fecha_recogida,
+                       // 'type'=> DetailView::INPUT_TEXTAREA, 
+                      ],
+                    
+                    //'status',
+                    [
+                        'attribute' =>  'transportistaid',
+                         'label' => 'Chofer ',
+                         'value'=> $model->transportista->chofer,
+                        // 'type'=> DetailView::INPUT_TEXTAREA, 
+                       ],
+                    [
+                        'attribute' =>  'transportistaid',
+                         'label' => 'Vehiculo ',
+                         'value'=> $model->transportista->vehiculo,
+                        // 'type'=> DetailView::INPUT_TEXTAREA, 
+                       ],
+                   // 'clienteid',
+                 //   'tipo_estado_solicitudid',
+                ],
+                   'enableEditMode'=>FALSE,
+                   'hideIfEmpty'=> TRUE,
+            'deleteOptions'=>[ // your ajax delete parameters
+           'params' => ['id' => $modelSolicitud->id, 'custom_param' => true],
+              'url' => ['delete', 'id' => $modelSolicitud->id],
+        ]
+            ]) ;
+    }
+    
+    ?>
 </div>
