@@ -1,10 +1,12 @@
 <?php
 
 use frontend\models\Solicitud;
+use frontend\models\TipoEstadoSolicitud;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\icons\Icon;
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\SolicitudSearch $searchModel */
@@ -62,27 +64,36 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                     switch ($model->tipo_estado_solicitudid) {
                         case '1':
-                            return '<h4><span class="badge text-bg-info">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            return '<h5><span class="badge text-bg-info">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '2':
-                            return '<h4><span class="badge text-bg-primary">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            return '<h5><span class="badge text-bg-primary">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '3':
-                            return '<h4><span class="badge text-bg-warning">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            return '<h5><span class="badge text-bg-warning">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '4':
-                            return '<h4><span class="badge text-bg-success">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            return '<h5><span class="badge text-bg-success">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '5':
-                            return '<h4><span class="badge text-bg-danger">'.$model->tipoEstadoSolicitud->estado.'</span></h4>';
+                            return '<h5><span class="badge text-bg-danger">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         
                         default:
                             # code...
                             break;
                     }
+                    
+                    
                    
-                }
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                    'filter' => ArrayHelper::map(TipoEstadoSolicitud::find()->andWhere(['status'=>1])->orderBy('id')->asArray()->all(), 'id', 'estado'), 
+                    'filterWidgetOptions' => [
+                        'pluginOptions' => ['allowClear' => true],
+                    ],
+                    'filterInputOptions' => ['placeholder' => 'Estado'], 
+                    'format' => 'raw',
 
             ],
            

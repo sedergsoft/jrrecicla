@@ -289,7 +289,7 @@ class UserController extends Controller
                 $user = UserModel::findIdentity($id);  
                 $user->setPassword($model->password_hash);
                 $user->generateAuthKey();
-                if( $user->update(false))
+            if( $user->update(false))
             {
             $_SESSION['user'] = $model->username;
             Yii::$app->session->setFlash("ok_contraseña"); 
