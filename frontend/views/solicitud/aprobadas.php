@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // ],
            
             ['class' => 'yii\grid\ActionColumn',
-            'template'=>'{view} {cancelar} {recepcionar}',
+            'template'=>Yii::$app->user->identity->rolid==2?'{view}':'{view} {cancelar} {recepcionar}',
             'buttons' => [
                  
                 'view' => function ($url, $data){
