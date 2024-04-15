@@ -1,0 +1,112 @@
+.login-logo,.register-logo {
+    font-size: 35px;
+    text-align: center;
+    font-weight: 300
+}
+
+.login-logo a,.register-logo a {
+    color: #444
+}
+
+.login-page,.register-page {
+    background: #c7e8ee
+}
+
+.login-box,.register-box {
+    width: 360px;
+    margin: 7% auto
+}
+
+@media (max-width: 576px) {
+    .login-box,.register-box {
+        width:90%;
+        margin-top: 20px
+    }
+}
+
+.login-box-body,.register-box-body {
+    background: #fff;
+    padding: 20px;
+    border-top: 0;
+    color: #666
+}
+
+.login-box-body .form-control-feedback,.register-box-body .form-control-feedback {
+    color: #777
+}
+
+.login-box-msg,.register-box-msg {
+    margin: 0;
+    text-align: center;
+    padding: 0 20px 20px 20px
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem
+}
+
+.card-title {
+    margin-bottom: .75rem
+}
+
+.card-subtitle {
+    margin-top: -.375rem;
+    margin-bottom: 0
+}
+.login-logo,
+.register-logo {
+  font-size: 35px;
+  text-align: center;
+
+  font-weight: 300;
+}
+
+.login-logo a,
+.register-logo a {
+  color: #444;
+}
+
+.login-page,
+.register-page {
+  background: #e9ecef;
+}
+
+.login-box,
+.register-box {
+  width: 360px;
+  margin: 7% auto;
+}
+
+@media (max-width: 576px) {
+  .login-box,
+  .register-box {
+    width: 90%;
+    margin-top: 20px;
+  }
+}
+
+.login-box-body,
+.register-box-body {
+  background: #ffffff;
+  padding: 20px;
+  border-top: 0;
+  color: #666;
+}
+
+.login-box-body .form-control-feedback,
+.register-box-body .form-control-feedback {
+  color: #777;
+}
+
+.login-box-msg,
+.register-box-msg {
+  margin: 0;
+  text-align: center;
+  padding: 0 20px 20px 20px;
+}
+
+.social-auth-links {
+  margin: 10px 0;
+}
+.hold-transition .content-wrapper,.hold-transition .main-footer,.hold-transition .main-header{transition:none!important}.main-header{z-index:1000}
