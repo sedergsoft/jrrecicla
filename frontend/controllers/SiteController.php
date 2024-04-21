@@ -90,7 +90,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (!Yii::$app->user->isGuest) {
+            //return $this->goHome();
+            return $this->render('index');
+        }
+        $this->redirect(['login']);
     }
 
     /**
@@ -98,23 +102,23 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+    // public function actionLogin()
+    // {
+    //     if (!Yii::$app->user->isGuest) {
+    //         return $this->goHome();
+    //     }
+    //     $this->layout = 'main-login';
+    //     $model = new LoginForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    //         return $this->goBack();
+    //     }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+    //     $model->password = '';
 
-        $model->password = '';
-
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('login', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Logs out the current user.

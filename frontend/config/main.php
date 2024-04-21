@@ -62,6 +62,14 @@ return [
                 '<controller:[\w-]+>/<id:\d+>'=> '<controller>/view',
             ],
         ],
+        'view'=>[
+            'theme'=>[
+                'pathMap'=>[
+                    '@app/views'=>'@frontend/theme/adminLTE3/views'
+                    //  '@app/views' => '@vendor/hail812/yii2-adminlte3/src/views'
+                ],
+            ],
+        ],
         
     ],
     'params' => $params,

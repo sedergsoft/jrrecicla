@@ -346,6 +346,16 @@ class SolicitudController extends Controller
 
         return $this->redirect(['index']);
     }
+    public static function CuentaSolicitud($criterio)
+    {
+        $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1,'tipo_estado_solicitudid'=>$criterio])->count();
+        return $cantSolicitudes;  
+    }
+    public static function CuentaSolicitudActiva()
+    {
+        $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->count();
+        return $cantSolicitudes;  
+    }
 
     /**
      * Finds the Solicitud model based on its primary key value.
