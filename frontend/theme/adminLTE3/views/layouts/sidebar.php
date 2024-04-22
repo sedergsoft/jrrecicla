@@ -71,7 +71,7 @@
                         'label' => 'Reportes',
                         'icon' => 'file-alt',
                         'items' => [
-                            ['label' => 'Usuarios', 'url' => ['/user/index'], 'iconStyle' => 'fa','icon' => 'users' ],
+                            ['label' => 'Tiempo de respuesta', 'url' => ['/solicitud/tiempo'], 'iconStyle' => 'fa','icon' => 'clock' ],
                             ['label' => 'Cambiar Contraseña', 'url' => ['/user/password','id'=> Yii::$app->user->getId()],'iconStyle' => 'fa', 'icon' => 'fingerprint'/*, 'iconClassAdded'=>'fa-9x'*/],
                             // ['label' => 'Solicitudes Pendientes', 'url' => ['/solicitudes/pendientes'], 'iconStyle' => 'fa', 'icon' => 'clock'],
                             // ['label' => 'Solicitudes Rechazadas', 'url' => ['/solicitudes/rechazadas'],'iconStyle' => 'fa', 'icon' => 'times'],

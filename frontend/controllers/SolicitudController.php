@@ -137,6 +137,33 @@ class SolicitudController extends Controller
         ]);
 
     }
+    public function actionTiempo()
+    {
+        $searchModel = new SolicitudSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->all();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
+        return $this->render('tiempo', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+    public static function Activas()
+    {
+        $searchModel = new SolicitudSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->all();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
+        return  $dataProvider;
+
+    }
     public function actionAprobadas()
     {
         $searchModel = new SolicitudSearch();
@@ -354,6 +381,12 @@ class SolicitudController extends Controller
     public static function CuentaSolicitudActiva()
     {
         $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->count();
+       // $cantSolicitudes =$SolicitudController::Activas()->getCount();
+        return $cantSolicitudes;  
+    }
+    public static function CuentaSolicitudTotal()
+    {
+        $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['5']]])->count();
         return $cantSolicitudes;  
     }
 
@@ -406,5 +439,13 @@ class SolicitudController extends Controller
         ->setTo($solicitud->cliente->email)
         ->setSubject('Cambio de estado de la Solicitud ' . Yii::$app->name)
         ->send();  
+    }
+
+    public static function decimal($value)
+    {
+      //  $separator = Yii::$app->formatter->decimalSeparator;
+        $separator = '.';
+        $position = strpos($value,$separator);
+        return $position?substr($value,0,$position+3):$value; 
     }
 }

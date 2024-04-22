@@ -64,19 +64,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                     switch ($model->tipo_estado_solicitudid) {
                         case '1':
-                            return '<h5><span class="badge text-bg-info">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
+                            return '<h5><span class="badge badge-info">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '2':
-                            return '<h5><span class="badge text-bg-primary">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
+                            return '<h5><span class="badge badge-primary">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '3':
-                            return '<h5><span class="badge text-bg-warning">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
+                            return '<h5><span class="badge badge-warning">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '4':
-                            return '<h5><span class="badge text-bg-success">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
+                            return '<h5><span class="badge badge-success">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         case '5':
-                            return '<h5><span class="badge text-bg-danger">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
+                            return '<h5><span class="badge badge-danger">'.$model->tipoEstadoSolicitud->estado.'</span></h5>';
                             break;
                         
                         default:

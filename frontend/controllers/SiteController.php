@@ -91,8 +91,22 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
-            //return $this->goHome();
-            return $this->render('index');
+            $nuevas =  SolicitudController::CuentaSolicitud(1);
+            $atendidas =  SolicitudController::CuentaSolicitud(4);
+            $pendientes =  SolicitudController::CuentaSolicitud(3);
+            $canceladas =  SolicitudController::CuentaSolicitud(5);
+            $activas = SolicitudController::CuentaSolicitudActiva();
+            $totalSol = SolicitudController::CuentaSolicitudTotal();
+            $solicitudes = SolicitudController::Activas();
+            return $this->render('index',[
+                'nuevas' => $nuevas,
+                'atendidas' => $atendidas,
+                'pendientes' => $pendientes,
+                'canceladas' => $canceladas,
+                'activas' => $activas,
+                'totalSol' => $totalSol,
+                'solicitudes'=>$solicitudes,
+            ]);
         }
         $this->redirect(['login']);
     }
