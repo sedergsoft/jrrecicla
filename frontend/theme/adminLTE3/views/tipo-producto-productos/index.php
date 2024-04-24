@@ -35,7 +35,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'tipo_productoid',
+            [
+                'attribute'=>'cantxprod',
+                'value'=>function($model)
+                {
+                    return $model->productos->getProductosSolicituds()->count();
+                }
+            ],
+            [
+                'attribute'=>'tipo_productoid',
+                'value'=>function($model)
+                {
+                    return $model->tipoProducto->tipo;
+                }
+            ],
+            'tipoProducto.tipo.',
             'productosid',
             'status',
             ['class' => 'yii\grid\ActionColumn',

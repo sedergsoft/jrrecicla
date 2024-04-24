@@ -2,7 +2,10 @@
 
 namespace frontend\controllers;
 
+use frontend\models\ProductosSolicitud;
+use frontend\models\Solicitud;
 use frontend\models\TipoProducto;
+use frontend\models\TipoProductoProductos;
 use frontend\models\TipoProductoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -155,4 +158,73 @@ class TipoProductoController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+    public function actionCant($estado_sol=null)
+    {
+        $searchModel = new TipoProductoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        switch ($estado_sol) {
+            case 'null':
+                $tabla = 'Todas los Solicitudes';
+                break;
+                
+                case 4:
+                    $tabla = 'Productos Recogidos';
+                    break;
+                case 3:
+                    $tabla = 'Productos pendientes por Recoger';
+                    break;
+                case 5:
+                    $tabla = 'Solicitudes Canceladas';
+                    break;
+            default:
+                $tabla = 'Todas los Solicitudes';
+                break;
+        }
+        $_SESSION['estado'] = $estado_sol;
+        return $this->render('cant', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'tabla'=>$tabla,
+        ]);
+    }
+
+    public static function cantProd($tipo_prod)
+    {
+        $estado = $_SESSION['estado'];
+       // return print_r($tipo_prod.'-'.$estado);
+        $cant_prod=0;
+        $estado==null?$solicitudes = Solicitud::find()->where(['status'=>1])->all():$solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
+        // if($estado==null)
+        // {
+        //     $solicitudes = Solicitud::find()->where(['status'=>1])->all();
+            
+        // }else{
+        //     $solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
+        //     }
+       // $solicitudes = Solicitud::find()->where(['status'=>1])->all();
+        if($solicitudes)
+        {
+            foreach ($solicitudes as $key => $solicitud) 
+            {
+                $productos=ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$solicitud->id])->all();
+                if($productos)
+                {
+                    foreach ($productos as $key => $producto)
+                    {
+                        $tipo_producto = TipoProductoProductos::find()->andWhere(['status'=>1,'productosid'=>$producto->productosid,'tipo_productoid'=>$tipo_prod])->all();
+                        if($tipo_producto)
+                        {
+                        	foreach ($tipo_producto as $key => $tproducto) 
+                            {
+                                $cant_prod +=$tproducto->cant*$producto->cant;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $cant_prod;
+    }
+
 }

@@ -70,4 +70,26 @@ class ProductosSolicitud extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Solicitud::class, ['id' => 'solicitudid']);
     }
+
+    // public function cantidadproductos($tipo_producto)
+    // {
+    //     $canti = 0;
+    //     $Prod = Productos::find()->andWhere(['status'=>1])->all();
+    //     if($Prod)
+    //     {
+    //     foreach($Prod as $key=>$p)
+    //     {
+    //         $tipops = $p->getTipoProductoProductos();
+    //         foreach($tipops as $key => $t)
+    //         {
+    //             if($t==$tipo_producto)
+    //             {
+    //                 $canti += $t->cant*$this->cant;    
+    //             }  
+    //         }
+    //     }
+    //     }
+    //     return $canti;
+    // }
+
 }

@@ -7,6 +7,7 @@ use frontend\models\Model;
 use frontend\models\ProductosSolicitud;
 use frontend\models\ProductosSolicitudSearch;
 use frontend\models\Recogida;
+use frontend\models\ClienteSearch;
 use frontend\models\Solicitud;
 use frontend\models\SolicitudSearch;
 use frontend\models\TipoProducto;
@@ -146,7 +147,7 @@ class SolicitudController extends Controller
         {
             $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
         }
-        return $this->render('tiempo', [
+        return $this->render('tiempo  ', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -375,18 +376,39 @@ class SolicitudController extends Controller
     }
     public static function CuentaSolicitud($criterio)
     {
-        $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1,'tipo_estado_solicitudid'=>$criterio])->count();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+                                                                                                             
+            $cantSolicitudes = Solicitud::find()->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->andWhere(['status'=>1,'tipo_estado_solicitudid'=>$criterio])->count();
+        }else{
+
+            $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1,'tipo_estado_solicitudid'=>$criterio])->count();
+        }
         return $cantSolicitudes;  
     }
     public static function CuentaSolicitudActiva()
     {
-        $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->count();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+
+            $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->count();
+        }else{
+
+            $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->count();
+        }
        // $cantSolicitudes =$SolicitudController::Activas()->getCount();
         return $cantSolicitudes;  
     }
     public static function CuentaSolicitudTotal()
     {
-        $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['5']]])->count();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+
+            $cantSolicitudes = Solicitud::find()->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['5']]])->count();
+        }else{
+
+            $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['5']]])->count();
+        }
         return $cantSolicitudes;  
     }
 
@@ -447,5 +469,31 @@ class SolicitudController extends Controller
         $separator = '.';
         $position = strpos($value,$separator);
         return $position?substr($value,0,$position+3):$value; 
+    }
+
+    // public function actionSolicitudesxcliente()
+    // {
+    //     $solicitudes = Cliente::find()->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
+    // return print_r($solicitudes);
+    // }
+    public function actionSolicitudesxcliente()
+    {
+        $searchModel = new ClienteSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+       // $dataProvider->query->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
+        return $this->render('Solxcli', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionCantProd()
+    {
+        $searchModel = new Solicitud();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+       // $dataProvider->query->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
+        return $this->render('cantxprod', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

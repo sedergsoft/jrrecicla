@@ -203,4 +203,18 @@ class ProductosSolicitudController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    // public static function contarProductos($tipo_producto)
+    // {
+    //     $cant = 0;
+    //     $solicitudes = ProductosSolicitud::find()->andWhere(['status'=>1])->all();
+    //     foreach($solicitudes as $key=>$solicitud)
+    //     {
+    //         $cant+=$solicitud->cantidadproductos($tipo_producto);
+    //     }
+    //     return $cant;
+
+    // }
+
+  
 }
