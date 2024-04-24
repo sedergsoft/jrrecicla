@@ -147,7 +147,7 @@ class SolicitudController extends Controller
         {
             $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
         }
-        return $this->render('tiempo  ', [
+        return $this->render('tiempo', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -480,6 +480,10 @@ class SolicitudController extends Controller
     {
         $searchModel = new ClienteSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['id'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
        // $dataProvider->query->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
         return $this->render('Solxcli', [
             'searchModel' => $searchModel,
@@ -490,6 +494,10 @@ class SolicitudController extends Controller
     {
         $searchModel = new Solicitud();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
        // $dataProvider->query->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
         return $this->render('cantxprod', [
             'searchModel' => $searchModel,

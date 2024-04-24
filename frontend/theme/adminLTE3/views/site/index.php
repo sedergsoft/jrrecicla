@@ -2,8 +2,10 @@
 
 use dosamigos\chartjs\ChartJs;
 use frontend\controllers\SolicitudController;
+use frontend\controllers\UserController;
 use frontend\models\Cliente;
 use frontend\models\GrupoHotelero;
+use frontend\models\Solicitud;
 use kartik\grid\GridView;
 use kartik\icons\Icon;
 use miloschuman\highcharts\Highcharts;
@@ -28,13 +30,18 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </div>
     </div> -->
 
-    <div class="row">
+    <?php
+     if (Yii::$app->user->identity->rolid != 1)
+     {
+        ?>
+        <div class="row">
         <div class="col-12 col-sm-6 col-md-6">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Clientes',
-                'number' => Cliente::find()->andWhere(['status'=>1])->count(),
-                'icon' => 'fas fa-users',
-            ]) ?>
+        <?= \hail812\adminlte\widgets\InfoBox::widget([
+                            'text' => 'Cantidad de Solicitudes',
+                            'number' => Solicitud::find()->andWhere(['status'=>1,'clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->count(),
+                            'icon' => 'fas fa-clipboard-list',
+                        ]) ?>
+        
         </div>
         <div class="col-12 col-sm-6 col-md-6">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
@@ -45,7 +52,28 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             ]) ?>
         </div>
     </div>
-
+    <?php
+     }else{
+    ?>
+                <div class="row">
+                   
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <?= \hail812\adminlte\widgets\InfoBox::widget([
+                            'text' => 'Clientes',
+                            'number' => Cliente::find()->andWhere(['status'=>1])->count(),
+                            'icon' => 'fas fa-users',
+                        ]) ?>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <?= \hail812\adminlte\widgets\InfoBox::widget([
+                            'text' => 'Cadenas',
+                            'number' =>GrupoHotelero::find()->andWhere(['status'=>1])->count(),
+                            'icon' => 'fas fa-hotel',
+                            'iconTheme'=>'primary'
+                        ]) ?>
+                    </div>
+                </div>
+          <?php  } ?>
     <!-- <div class="row">
         <div class="col-md-4 col-sm-6 col-12">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
@@ -248,6 +276,19 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         //         ],
         //     ],
         // ],
+        // 'series'=> [
+        //     'type' => 'pie',
+        //     'name'=>'Browser share',
+        //     'innerSize'=> '50%',
+        //     'data'=> [
+        //         ['Chrome', 73.86],
+        //         ['Edge', 11.97],
+        //         ['Firefox', 5.52],
+        //         ['Safari', 2.98],
+        //         ['Internet Explorer', 1.90],
+        //         ['Other', 3.77]
+        //     ]
+        
                 'series' => [
                     [
                         'type' => 'column',

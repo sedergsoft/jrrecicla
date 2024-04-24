@@ -189,42 +189,101 @@ class TipoProductoController extends Controller
         ]);
     }
 
-    public static function cantProd($tipo_prod)
-    {
-        $estado = $_SESSION['estado'];
-       // return print_r($tipo_prod.'-'.$estado);
-        $cant_prod=0;
-        $estado==null?$solicitudes = Solicitud::find()->where(['status'=>1])->all():$solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
-        // if($estado==null)
-        // {
-        //     $solicitudes = Solicitud::find()->where(['status'=>1])->all();
+    // public static function cantProd($tipo_prod)
+    // {
+    //     $estado = $_SESSION['estado'];
+    //    // return print_r($tipo_prod.'-'.$estado);
+    //     $cant_prod=0;
+    //     if(Yii::$app->user->identity->rolid!=1)
+    //     {
+
+    //         $estado==null?$solicitudes = Solicitud::find()->andWhere(['status'=>1,'clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all():$solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado,'clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+    //     }else{
+
+    //         $estado==null?$solicitudes = Solicitud::find()->where(['status'=>1])->all():$solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
+    //     }
+    //     // if($estado==null)
+    //     // {
+    //     //     $solicitudes = Solicitud::find()->where(['status'=>1])->all();
             
-        // }else{
-        //     $solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
-        //     }
-       // $solicitudes = Solicitud::find()->where(['status'=>1])->all();
-        if($solicitudes)
-        {
-            foreach ($solicitudes as $key => $solicitud) 
-            {
-                $productos=ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$solicitud->id])->all();
-                if($productos)
-                {
-                    foreach ($productos as $key => $producto)
-                    {
-                        $tipo_producto = TipoProductoProductos::find()->andWhere(['status'=>1,'productosid'=>$producto->productosid,'tipo_productoid'=>$tipo_prod])->all();
-                        if($tipo_producto)
-                        {
-                        	foreach ($tipo_producto as $key => $tproducto) 
-                            {
-                                $cant_prod +=$tproducto->cant*$producto->cant;
-                            }
-                        }
-                    }
-                }
+    //     // }else{
+    //     //     $solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
+    //     //     }
+    //    // $solicitudes = Solicitud::find()->where(['status'=>1])->all();
+    //     if($solicitudes)
+    //     {
+    //         foreach ($solicitudes as $key => $solicitud) 
+    //         {
+    //             $productos=ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$solicitud->id])->all();
+    //             if($productos)
+    //             {
+    //                 foreach ($productos as $key => $producto)
+    //                 {
+    //                     $tipo_producto = TipoProductoProductos::find()->andWhere(['status'=>1,'productosid'=>$producto->productosid,'tipo_productoid'=>$tipo_prod])->all();
+    //                     if($tipo_producto)
+    //                     {
+    //                     	foreach ($tipo_producto as $key => $tproducto) 
+    //                         {
+    //                             $cant_prod +=$tproducto->cant*$producto->cant;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return $cant_prod;
+    // }
+
+  /**
+ * Calcula la cantidad total de un tipo específico de producto en base a ciertas condiciones.
+ *
+ * @param int $tipo_prod El ID del tipo de producto a calcular.
+ * @return int La cantidad total del tipo de producto especificado.
+ */
+public static function cantProd($tipo_prod)
+{
+    // Obtener el estado de la sesión
+    $estado = $_SESSION['estado'];
+    // Inicializar la variable para almacenar la cantidad total de productos
+    $cant_prod = 0;
+    
+    // Crear la consulta base de solicitudes
+    $query = Solicitud::find()->where(['status' => 1]);
+    
+    // Verificar el rol del usuario para filtrar las solicitudes
+    if (Yii::$app->user->identity->rolid != 1) {
+        $query->andWhere(['clienteid' => UserController::findModel(Yii::$app->user->getId())->empresa->id]);
+    }
+    
+    // Filtrar las solicitudes por estado si se proporciona
+    if ($estado !== null) {
+        $query->andWhere(['tipo_estado_solicitudid' => $estado]);
+    }
+    
+    // Ejecutar la consulta de solicitudes
+    $solicitudes = $query->all();
+    
+    // Iterar sobre las solicitudes encontradas
+    foreach ($solicitudes as $solicitud) {
+        // Obtener los productos asociados a la solicitud
+        $productos = ProductosSolicitud::find()->where(['status' => 1, 'solicitudid' => $solicitud->id])->all();
+        
+        // Iterar sobre los productos encontrados
+        foreach ($productos as $producto) {
+            // Buscar los tipos de producto específicos
+            $tipo_producto = TipoProductoProductos::find()
+                ->where(['status' => 1, 'productosid' => $producto->productosid, 'tipo_productoid' => $tipo_prod])
+                ->all();
+            
+            // Calcular la cantidad total de productos del tipo especificado
+            foreach ($tipo_producto as $tproducto) {
+                $cant_prod += $tproducto->cant * $producto->cant;
             }
         }
-        return $cant_prod;
     }
+    
+    // Retornar la cantidad total de productos del tipo especificado
+    return $cant_prod;
+}
 
 }

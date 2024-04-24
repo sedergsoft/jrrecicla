@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
 ?>
 
 <div class="solicitud-form">
-<div class="row">
+<div >
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
 
@@ -54,8 +54,8 @@ use yii\helpers\ArrayHelper;
                <div class="itemProd card card-default" style="margin-top: 15px;"><!-- widgetBody -->
                    <div class="card-header">
                        <h3 class="card-title float-start"> Producto </h3>
-                       <div class="float-end">
-                           <button type="button" class="add-itemProd btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                       <div class="row justify-content-end">
+                           <button type="button" class="add-itemProd btn btn-success btn-xs" style="margin-right:5px;"><i class="fa fa-plus"></i></button>
                            <button type="button" class="remove-itemProd btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                        </div>
                        <div class="clearfix"></div>
