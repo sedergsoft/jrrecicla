@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\Cliente;
 use frontend\models\ClienteSearch;
+use frontend\models\Solicitud;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -147,12 +148,35 @@ class ClienteController extends Controller
      * @return Cliente the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected static function findModel($id)
     {
         if (($model = Cliente::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public static function clienteimporte($clienteid,$status=null)
+    {
+     $importeTotal = 0;
+     $cliente = ClienteController::findModel($clienteid);
+     if($cliente)
+      {
+        $solicitudes = Solicitud::find()->andWhere(['status'=>1,'clienteid'=>$clienteid])->all();
+        if($status!=null)
+        {
+            $solicitudes = Solicitud::find()->andWhere(['status'=>1,'clienteid'=>$clienteid,'tipo_estado_solicitudid'=>$status])->all();
+          }
+        if($solicitudes)
+        {
+
+            foreach ($solicitudes as $key => $solicitud) 
+            {
+                $importeTotal+= $solicitud->getImporte();
+            }
+        }
+      }
+      return $importeTotal;
     }
 }

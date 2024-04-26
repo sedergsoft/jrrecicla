@@ -504,4 +504,26 @@ class SolicitudController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public static function importeGeneralVentas($status=null)
+    {
+        $importeTotal = 0;
+        
+           $solicitudes = Solicitud::find()->andWhere(['status'=>1])->all();
+           if($status!=null)
+           {
+               $solicitudes = Solicitud::find()->andWhere(['status'=>1,'tipo_estado_solicitudid'=>$status])->all();
+             }
+           if($solicitudes)
+           {
+   
+               foreach ($solicitudes as $key => $solicitud) 
+               {
+                   $importeTotal+= $solicitud->getImporte();
+               }
+           }
+        
+         return $importeTotal;
+      
+
+    }
 }

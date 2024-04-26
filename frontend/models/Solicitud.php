@@ -103,4 +103,18 @@ class Solicitud extends \yii\db\ActiveRecord
             return FALSE;
         }
     }
+
+    public function getImporte()
+    {
+        $importe = 0;
+        $productos = ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$this->id])->all();
+        if($productos)
+        {
+
+            foreach ($productos as $producto) {
+                $importe += $producto->cant * $producto->productos->precio;
+            }
+        }
+        return $importe;
+    }
 }
