@@ -162,6 +162,7 @@ class SolicitudController extends Controller
         {
             $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
         }
+        $dataProvider->pagination->pageSize = 3;
         return  $dataProvider;
 
     }
@@ -236,22 +237,26 @@ class SolicitudController extends Controller
                     $solicitud->updateAttributes(['tipo_estado_solicitudid'=>2,'fecha_aprob'=>date('Y-m-d')]);
                     
                     $this->Notificarestado($solicitud);
+                    NotificationsController::Notifiar($solicitud);
                     return $this->redirect(['detalles','id'=>$solicitud->id]);
                     break;
                 case '1':
-                $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
+                    $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
                     $this->Notificarestado($solicitud);
+                    NotificationsController::Notifiar($solicitud);
                     return $this->redirect(['solicitudes/todas']);
                     break;
                 case '3':
                     $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
+                    NotificationsController::Notifiar($solicitud);
                     $this->Notificarestado($solicitud);
                     return $this->redirect(['solicitudes/todas']);
                     break;
-                case '4':
-                
-                    return $this->redirect(['recogida/create','idsolicitud'=>$solicitud->id]);
-                    break;
+                    case '4':
+                        
+                       
+                        return $this->redirect(['recogida/create','idsolicitud'=>$solicitud->id]);
+                        break;
                 case '5':
                     $solicitud->updateAttributes(['tipo_estado_solicitudid'=>4,'fecha_ejec'=>date('Y-m-d')]);
                     $this->Notificarestado($solicitud);
@@ -312,6 +317,7 @@ class SolicitudController extends Controller
                             }
                             if ($flag) {
                                 $transaction->commit();
+                                NotificationsController::Notifiar($model);
                                 return $this->redirect(['detalles', 'id' => $model->id]);
                             }
                         } catch (Exception $e) {
@@ -386,31 +392,45 @@ class SolicitudController extends Controller
         }
         return $cantSolicitudes;  
     }
-    public static function CuentaSolicitudActiva()
+ /**
+ * Obtiene la cantidad de solicitudes activas para el usuario actual.
+ * @return int La cantidad de solicitudes activas.
+ */
+public static function CuentaSolicitudActiva()
+{
+    // Crear una consulta para encontrar las solicitudes activas
+    $query = Solicitud::find()->andWhere(['status' => 1])->andWhere(['NOT', ['tipo_estado_solicitudid' => ['4', '5']]]);
+    
+    // Verificar si el usuario no es un administrador
+    if(Yii::$app->user->identity->rolid != 1)
     {
-        if(Yii::$app->user->identity->rolid!=1)
-        {
-
-            $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->count();
-        }else{
-
-            $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['4','5']]])->count();
-        }
-       // $cantSolicitudes =$SolicitudController::Activas()->getCount();
-        return $cantSolicitudes;  
+        // Agregar condición adicional para filtrar por cliente
+        $query->andWhere(['clienteid' => UserController::findModel(Yii::$app->user->getId())->empresa->id]);
     }
-    public static function CuentaSolicitudTotal()
+    
+    // Contar el número de solicitudes activas
+    return $query->count();
+}
+
+/**
+ * Obtiene la cantidad total de solicitudes para el usuario actual.
+ * @return int La cantidad total de solicitudes.
+ */
+public static function CuentaSolicitudTotal()
+{
+    // Crear una consulta para encontrar todas las solicitudes activas
+    $query = Solicitud::find()->andWhere(['status' => 1])->andWhere(['NOT', ['tipo_estado_solicitudid' => ['5']]]);
+    
+    // Verificar si el usuario no es un administrador
+    if(Yii::$app->user->identity->rolid != 1)
     {
-        if(Yii::$app->user->identity->rolid!=1)
-        {
-
-            $cantSolicitudes = Solicitud::find()->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['5']]])->count();
-        }else{
-
-            $cantSolicitudes = Solicitud::find()->andWhere(['status'=>1])->andWhere(['NOT',['tipo_estado_solicitudid'=>['5']]])->count();
-        }
-        return $cantSolicitudes;  
+        // Agregar condición adicional para filtrar por cliente
+        $query->andWhere(['clienteid' => UserController::findModel(Yii::$app->user->getId())->empresa->id]);
     }
+    
+    // Contar el número total de solicitudes
+    return $query->count();
+}
 
     /**
      * Finds the Solicitud model based on its primary key value.

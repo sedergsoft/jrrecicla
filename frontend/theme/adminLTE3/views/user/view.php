@@ -4,6 +4,7 @@ use frontend\models\Cliente;
 use frontend\models\Rol;
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use kartik\icons\Icon;
 use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
@@ -24,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
     'hover'=>true,
     'mode'=>DetailView::MODE_VIEW,
     'panel'=>[
-        'heading'=>'Usuario (' . $model->username .')',
-        'type'=>DetailView::TYPE_INFO,
+        'heading'=>Icon::show('user', ['class'=>'fa', 'framework' => Icon::FA]). '  Usuario (' . $model->username .')',
+        'type'=>DetailView::TYPE_PRIMARY,
     ],
     'attributes'=>[
           //  'id',

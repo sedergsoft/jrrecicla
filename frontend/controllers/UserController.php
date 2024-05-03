@@ -98,7 +98,8 @@ class UserController extends Controller
                 return print_r($model->errors);
             }
         } else {
-            return $this->render('view', [ 'model' => $model]);
+            return Yii::$app->user->identity->rolid==1? $this->render('view', [ 'model' => $model]): $this->render('viewu', [ 'model' => $model]);
+           // return $this->render('view', [ 'model' => $model]);
         }
     // }else{
     //         throw new \yii\web\ForbiddenHttpException(Yii::t('app', 'No tiene los permisos necesarios para realizar esta acción.'));

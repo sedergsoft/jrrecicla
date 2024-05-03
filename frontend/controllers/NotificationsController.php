@@ -145,4 +145,33 @@ class NotificationsController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public static function BuscarNotificaciones()
+    {
+        if(Yii::$app->user->identity->rolid==1)
+        {
+            $userid = NULL;
+        }else{
+            $userid=Yii::$app->user->identity->id;
+        }
+        $notificaciones = Notifications::find()->andWhere(['status'=>1])->andWhere(['user_id'=>$userid]);
+        $notificar = Notifications::find()->andWhere(['status'=>1])->andWhere(['user_id'=>$userid])->all();
+        return $notificaciones->count()>0?$notificar:FALSE;
+       
+    }
+    public static function Notifiar($solicitud,$tipo=null,$noti = null)
+    {
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $notificacion = new Notifications();
+            $notificacion->message = 'La solicitud No.'.$solicitud->id.' se ha actualizado.';
+            $notificacion->save();
+        }else{
+            $notificacion = new Notifications();
+            $notificacion->message = 'La solicitud No.'.$solicitud->id.' se ha actualizado.';
+            $notificacion->user_id=$solicitud->clienteid;
+            $notificacion->save();
+
+        }
+    }
 }

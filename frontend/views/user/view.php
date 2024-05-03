@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'mode'=>DetailView::MODE_VIEW,
     'panel'=>[
         'heading'=>'Usuario (' . $model->username .')',
-        'type'=>DetailView::TYPE_INFO,
+        'type'=>DetailView::TYPE_PRIMARY,
     ],
     'attributes'=>[
           //  'id',

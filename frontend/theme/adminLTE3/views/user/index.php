@@ -56,10 +56,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                     switch ($model->status) {
                         case '9':
-                            return '<h5><span class="badge text-bg-danger"> Inactivo </span></h5>';
+                            return '<h5><span class="badge badge-danger"> Inactivo </span></h5>';
                             break;
                         case '10':
-                            return '<h5><span class="badge text-bg-success"> Activo </span></h5>';
+                            return '<h5><span class="badge badge-success"> Activo </span></h5>';
                             break;
                       
                         default:

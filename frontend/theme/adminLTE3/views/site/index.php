@@ -136,11 +136,14 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
     <div class="row">
     <div class="col-md-6 col-sm-6 col-12 col-lg-3">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
+                 'id' => 'message-info-box',
                 'text' => 'Solicitudes Activas',
                 'theme'=>'info',
                 'number' => $activas,
                 'icon' => 'fas fa-paste',
-            ]) ?>
+            ]) 
+           
+            ?>
         </div>
         <div class="col-md-6 col-sm-6 col-12 col-lg-3">
             <?php

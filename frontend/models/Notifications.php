@@ -17,17 +17,17 @@ use Yii;
  */
 class Notifications extends \yii\db\ActiveRecord
 {
-    public function __construct($user_id, $message, $created_at, $read_status = 0, $read_at = null, $status = 1, $config = [])
-    {
-        parent::__construct($config);
-        $this->user_id = $user_id;
-        $this->message = $message;
-        $this->created_at = $created_at;
-        $this->read_status = $read_status;
-        $this->read_at = $read_at;
-        $this->status = $status;
-        $this->save();
-    }
+    // public function __construct($user_id, $message, $read_status = 0, $read_at = 0, $status = 1, $config = [])
+    // {
+    //     parent::__construct($config);
+    //     $this->user_id = $user_id;
+    //     $this->message = $message;
+    //     $this->created_at = date();
+    //     $this->read_status = $read_status;
+    //     $this->read_at = $read_at;
+    //     $this->status = $status;
+    //     $this->save();
+    // }
     /**
      * {@inheritdoc}
      */
@@ -42,7 +42,7 @@ class Notifications extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'message'], 'required'],
+            [[ 'message'], 'required'],
             [['user_id', 'read_status', 'status'], 'integer'],
             [['created_at', 'read_at'], 'safe'],
             [['message'], 'string', 'max' => 255],

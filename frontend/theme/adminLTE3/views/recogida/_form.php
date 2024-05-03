@@ -13,7 +13,7 @@ use kartik\icons\Icon;
 ?>
 
 <div class="recogida-form">
-<div class="row">
+<div >
     <?php $form = ActiveForm::begin(); ?>
 
 <div class="col-lg-12"> <?= $form->field($model, 'transportistaid')->widget(kartik\select2\Select2::className(),[
