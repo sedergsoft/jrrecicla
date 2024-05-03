@@ -31,8 +31,9 @@ return [
     'modules' => [
         'rbac' => [
             'class' => 'yii2mod\rbac\Module',
-                    ],
+        ],
             'gridview' => ['class' => 'kartik\grid\Module'],
           
     ]
+    
 ];

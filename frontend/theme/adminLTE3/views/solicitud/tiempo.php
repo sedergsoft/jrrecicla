@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'before'=>Html::a(Icon::show('plus', ['class'=>'fa', 'framework' => Icon::FA])." Agregar", ['create'], ['class' => 'btn btn-success', 'id'=>'agregar']),
            
         ],
+        
 
         'filterModel' => $searchModel,
         'columns' => [

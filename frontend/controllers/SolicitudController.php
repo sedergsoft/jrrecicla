@@ -52,7 +52,26 @@ class SolicitudController extends Controller
             ]
         );
     }
-
+    public function actionReportesolicitudes()
+    {
+        $nuevas =  SolicitudController::CuentaSolicitud(1);
+        $atendidas =  SolicitudController::CuentaSolicitud(4);
+        $pendientes =  SolicitudController::CuentaSolicitud(3);
+        $canceladas =  SolicitudController::CuentaSolicitud(5);
+        $activas = SolicitudController::CuentaSolicitudActiva();
+        $totalSol = SolicitudController::CuentaSolicitudTotal();
+        $solicitudes = SolicitudController::Activas();
+        return $this->render('reportesolicitudes',[
+            'nuevas' => $nuevas,
+            'atendidas' => $atendidas,
+            'pendientes' => $pendientes,
+            'canceladas' => $canceladas,
+            'activas' => $activas,
+            'totalSol' => $totalSol,
+            'solicitudes'=>$solicitudes,
+        ]);
+        
+    }
     /**
      * Lists all Solicitud models.
      *
