@@ -189,51 +189,6 @@ class TipoProductoController extends Controller
         ]);
     }
 
-    // public static function cantProd($tipo_prod)
-    // {
-    //     $estado = $_SESSION['estado'];
-    //    // return print_r($tipo_prod.'-'.$estado);
-    //     $cant_prod=0;
-    //     if(Yii::$app->user->identity->rolid!=1)
-    //     {
-
-    //         $estado==null?$solicitudes = Solicitud::find()->andWhere(['status'=>1,'clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all():$solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado,'clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
-    //     }else{
-
-    //         $estado==null?$solicitudes = Solicitud::find()->where(['status'=>1])->all():$solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
-    //     }
-    //     // if($estado==null)
-    //     // {
-    //     //     $solicitudes = Solicitud::find()->where(['status'=>1])->all();
-            
-    //     // }else{
-    //     //     $solicitudes = Solicitud::find()->where(['status'=>1,'tipo_estado_solicitudid'=>$estado])->all();
-    //     //     }
-    //    // $solicitudes = Solicitud::find()->where(['status'=>1])->all();
-    //     if($solicitudes)
-    //     {
-    //         foreach ($solicitudes as $key => $solicitud) 
-    //         {
-    //             $productos=ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$solicitud->id])->all();
-    //             if($productos)
-    //             {
-    //                 foreach ($productos as $key => $producto)
-    //                 {
-    //                     $tipo_producto = TipoProductoProductos::find()->andWhere(['status'=>1,'productosid'=>$producto->productosid,'tipo_productoid'=>$tipo_prod])->all();
-    //                     if($tipo_producto)
-    //                     {
-    //                     	foreach ($tipo_producto as $key => $tproducto) 
-    //                         {
-    //                             $cant_prod +=$tproducto->cant*$producto->cant;
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return $cant_prod;
-    // }
-
   /**
  * Calcula la cantidad total de un tipo específico de producto en base a ciertas condiciones.
  *

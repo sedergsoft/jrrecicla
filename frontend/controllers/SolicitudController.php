@@ -130,7 +130,7 @@ class SolicitudController extends Controller
             $searchModelProductos = new ProductosSolicitudSearch();
             $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
             $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$model->id])->all();
-            $tipoProductos = SolicitudController::Obtenerproductos($id);
+            //$tipoProductos = SolicitudController::Obtenerproductos($id);
             $dataProviderTipo = new ActiveDataProvider(['query'=>TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$id])]);
             return $this->render('detalles', [
                         'modelSolicitud' => $model,
@@ -564,5 +564,19 @@ public static function CuentaSolicitudTotal()
          return $importeTotal;
       
 
+    }
+
+    public function actionExportsolicitud($solicitudid)
+    {
+        $modelProductos = ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$solicitudid])->all();
+        // $searchModelProductos = new ProductosSolicitudSearch();
+        // $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
+        // $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$model->id])->all();
+       // $tipoProductos = SolicitudController::Obtenerproductos($id);
+        $dataProviderTipo = TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])->all();
+        return $this->render('factura', [
+            'modelProductos' => $modelProductos,
+            'dataProviderTipo' => $dataProviderTipo,
+        ]);
     }
 }

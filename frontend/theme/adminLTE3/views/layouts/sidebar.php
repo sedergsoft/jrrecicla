@@ -14,7 +14,7 @@
                 <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="<?=Yii::$app->urlManager->createUrl(['user/view','id'=>Yii::$app->user->identity->id])?>" class="d-block"><?=Yii::$app->user->isGuest?'Invitado':Yii::$app->user->identity->username?></a>
+                <a href="<?=Yii::$app->urlManager->createUrl(['user/view','id'=>Yii::$app->user->identity->id])?>" class="d-block"><?=Yii::$app->user->isGuest?'Invitado':Yii::$app->user->identity->username/* .' - './*Yii::$app->user->identity->username->rol->rol*/?></a>
             </div>
         </div>
 
