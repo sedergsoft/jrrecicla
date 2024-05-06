@@ -568,6 +568,7 @@ public static function CuentaSolicitudTotal()
 
     public function actionExportsolicitud($solicitudid)
     {
+        $modelSolicitud = Solicitud::find()->andWhere(['id'=>$solicitudid])->one();
         $modelProductos = ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$solicitudid])->all();
         // $searchModelProductos = new ProductosSolicitudSearch();
         // $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
@@ -577,6 +578,7 @@ public static function CuentaSolicitudTotal()
         return $this->render('factura', [
             'modelProductos' => $modelProductos,
             'dataProviderTipo' => $dataProviderTipo,
+            'modelSolicitud' => $modelSolicitud,
         ]);
     }
 }
