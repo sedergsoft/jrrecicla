@@ -14,6 +14,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         "vendor/fontawesome-free/css/all.min.css",
+        "css/styleinvoice.css",
     ];
     public $js = [
     ];

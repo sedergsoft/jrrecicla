@@ -11,7 +11,9 @@ use frontend\models\ClienteSearch;
 use frontend\models\Solicitud;
 use frontend\models\SolicitudSearch;
 use frontend\models\TipoProducto;
+use frontend\models\TipoProductoProductos;
 use kartik\form\ActiveForm;
+use kartik\mpdf\Pdf;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -574,11 +576,96 @@ public static function CuentaSolicitudTotal()
         // $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
         // $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$model->id])->all();
        // $tipoProductos = SolicitudController::Obtenerproductos($id);
-        $dataProviderTipo = TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])->all();
-        return $this->render('factura', [
-            'modelProductos' => $modelProductos,
-            'dataProviderTipo' => $dataProviderTipo,
-            'modelSolicitud' => $modelSolicitud,
-        ]);
+      
+      
+    //    $tipoProductosproducto = TipoProductoProductos::find()->andWhere(['status'=>1])->all();
+    //    $dataProviderTipo = TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])->all();
+    //     $content =  $this->renderPartial('facturas', [
+    //         'modelProductos' => $modelProductos,
+    //         'dataProviderTipo' => $dataProviderTipo,
+    //         'modelSolicitud' => $modelSolicitud,
+    //         'tipoProductosproducto' => $tipoProductosproducto,
+    //     ]);
+
+
+    $model=$this->findModel($solicitudid);
+    if($model)
+    {
+        $searchModelProductos = new ProductosSolicitudSearch();
+        $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
+        $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$model->id])->all();
+        //$tipoProductos = SolicitudController::Obtenerproductos($id);
+        $dataProviderTipo = new ActiveDataProvider(['query'=>TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])]);
+        $content =  $this->renderPartial('detalles', [
+                    'modelSolicitud' => $model,
+                    'tipoProductos' => $dataProviderTipo,
+                    'searchModelProductos'=>$searchModelProductos,
+                    'dataProviderProductos'=>$dataProviderProductos,
+
+                ]);
     }
+
+    //     $pdf = new Pdf([
+    //         // set to use core fonts only
+    //         'mode' => Pdf::MODE_CORE, 
+    //         // A4 paper format
+    //         'format' => Pdf::FORMAT_A4, 
+    //         // portrait orientation
+    //         'orientation' => Pdf::ORIENT_PORTRAIT, 
+    //         // stream to browser inline
+    //         'destination' => Pdf::DEST_DOWNLOAD, 
+    //         // your html content input
+    //         'content' => $content,  
+    //         'defaultFontSize'=>60,
+    //         // format content from your own css file if needed or use the
+    //        // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+    //       'cssInline' => 'td{font-size:20px},th{font-size:20px},div.panel-heading{font-size:20px},.panel-title {
+    //     margin-top: 0;
+    //     margin-bottom: 0;
+    //     font-size: 20px;
+    //     color: inherit;
+    // }
+    
+    // sisga.css:144
+    // h1',     // format content from your own css file if needed or use the
+    //        'filename' => "Módelo Estadístico del Proceso evaluativo - Generado: ".date('M, Y').'.pdf',
+    //        'options' => ['title' => "Módelo Estadístico del Proceso evaluativo - Generado: ".date('M, Y')],
+    //          // call mPDF methods on the fly
+            
+    //         'methods' => [ 
+    //             'SetHeader'=>["Módelo Estadístico del Proceso evaluativo - Generado: ".date('M, Y')], 
+    //             'SetFooter'=>['  © ContInt [pág - {PAGENO}]'],
+    //         ]
+    //     ]);
+    //        return $pdf->render(); 
+    $pdf = new Pdf([
+        // set to use core fonts only
+        'mode' => Pdf::MODE_CORE, 
+        // A4 paper format
+        'format' => Pdf::FORMAT_A4, 
+        // portrait orientation
+        'orientation' => Pdf::ORIENT_PORTRAIT, 
+        // stream to browser inline
+        'destination' => Pdf::DEST_BROWSER, 
+        // your html content input
+        'content' => $content,  
+        // format content from your own css file if needed or use the
+        // enhanced bootstrap css built by Krajee for mPDF formatting 
+        //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+        //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/styleinvoice.min.css',
+        // any css to be embedded if required
+        //'cssInline' => '.kv-heading-1{font-size:18px}', 
+         // set mPDF properties on the fly
+        'options' => ['title' => 'Krajee Report Title'],
+         // call mPDF methods on the fly
+        'methods' => [ 
+            'SetHeader'=>['Krajee Report Header'], 
+            'SetFooter'=>['{PAGENO}'],
+        ]
+    ]);
+    
+    // return the pdf output as per the destination setting
+    return $pdf->render(); 
+         }
+    
 }

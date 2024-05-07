@@ -63,14 +63,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProviderProductos,
         'pjax'=>true,
         'showPageSummary' => true,
+       
+        
+    
         'panel' => [
             'heading'=>'<h4 class="panel-title">'.Icon::show('address-book', ['class'=>'fa', 'framework' => Icon::FA]).'Productos ('. $this->title.') </h4>',
             'type'=>'info',
           
           //  'after'=>Html::a(Icon::show('plus', ['class'=>'fa', 'framework' => Icon::FA])." Agregar", ['create'], ['class' => 'btn btn-success', 'id'=>'agregar']),
-           
         ],
-
+        'export'=>false,
+        
         'filterModel' => $searchModelProductos,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
