@@ -3,16 +3,29 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 
 ?>
   <header >
-      <div >
-        <img style="<?=$assetDir."/img/logoReyciklando.png"?>">
-      </div>
-      <h1>SOLICITUD</h1>
-      <div >
-        <div>Reyciklando App</div>
-        <div>reyciklando.reciclaje.cu</div>
-       
-        <div><a href="mailto:reyciklando@gmail.com">reyciklando@gmail.com</a></div>
-      </div>
+    <table>
+      <thead>
+          <tr class="info">
+            <th colspan="5" ><h1>SOLICITUD</h1></th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+
+            <td>
+              <div class="col-6" style="float: left;" >
+                <div><span>ID SOLICITUD</span> </div>
+                <div><span>CLIENTE</span> </div>
+                <div><span>REP.</span> </div>
+                <div><span>ADDRESS</span></div>
+                <div><span>EMAIL</span></div>
+                <div><span>FECHA SOL. </span> </div>
+            </div>
+          </td>
+            <td>
+                  
       <?php
       if($modelSolicitud)
       {
@@ -20,23 +33,39 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
         $canttotalprod = 0;
         
         ?>
-            <div >
-                <div><span>ID SOLICITUD</span> <?=$modelSolicitud->id?></div>
-                <div><span>CLIENTE</span> <?=$modelSolicitud->cliente->instalacion?></div>
-                <div><span>REP.</span> <?=$modelSolicitud->cliente->representante?></div>
-                <div><span>ADDRESS</span> <?=$modelSolicitud->cliente->direccion?></div>
-                <div><span>EMAIL</span> <?=$modelSolicitud->cliente->email?></div>
-                <div><span>FECHA SOL. </span> <?=$modelSolicitud->fecha_solic?></div>
+              <div class="col-6" style="float: left;" >
+                <div><?=$modelSolicitud->id?></div>
+                <div><?=$modelSolicitud->cliente->instalacion?></div>
+                <div><?=$modelSolicitud->cliente->representante?></div>
+                <div><?=$modelSolicitud->cliente->direccion?></div>
+                <div> <?=$modelSolicitud->cliente->email?></div>
+                <div><?=$modelSolicitud->fecha_solic?></div>
             </div>
-        <?php
+                        <?php
       }
       ?>
+          </td>
+          
+          <td>
+            
+                <div class="float-right float-end pull-right" >
+                  <div>Reyciklando App</div>
+                  <div>reyciklando.reciclaje.cu</div>
+                
+                  <div><a href="mailto:reyciklando@gmail.com">reyciklando@gmail.com</a></div>
+                </div>
+          </td>
+
+            </tr>
+        </tbody>
+    </table>
+      
     </header>
   
   
-      <table >
+      <table class="table table-bordered table-striped ">
         <thead>
-          <tr>
+          <tr class="info">
             <th >PRODUCTO</th>
             <th >DESCRIPTION</th>
             <th>PRECIO</th>
@@ -55,7 +84,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
                         $preciototal+= $producto->productos->precio*$producto->cant;
                        ?>
                        <tr>
-                            <td class="service"><?=$producto->productos->producto?></td>
+                            <td  class="service"><?=$producto->productos->producto?></td>
                             <td class="service"><?=$producto->productos->descripcion?></td>
                             <td class="unit"> $ <?=$producto->productos->precio?></td>
                             <td class="qty"><?=$producto->cant?></td>
@@ -67,12 +96,12 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
                       
                         ?>
                         <thead>
-                        <tr>
-                          <th  class="service"></th>
-                          <th  class="service">T.PRODUCTO</th>
+                        <tr class="success">
+                          
+                          <th colspan="2" >T.PRODUCTO</th>
                             <th class="service">CANT DE PRODUCTOS</th>
                             <th>CANT X PROD (g)</th>
-                            <th>CANT TOTAL(g)</th>
+                            <th colspan="2">CANT TOTAL(g)</th>
                            
                         </tr>
                         </thead>
@@ -84,12 +113,12 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
                            {
                             ?>
                                 <tr>
-                                    <td class="desc"></td>
-                                    <td class="service"><?=$tipo->tipoProducto->tipo?></td>
+                                 
+                                    <td colspan="2"  class="service"><?=$tipo->tipoProducto->tipo?></td>
                                    
                                     <td class="unit"><?=$producto->cant?></td>
                                     <td class="unit"><?=$tipo->cant?></td>
-                                    <td class="unit"><?=$tipo->cant*$producto->cant?></td>
+                                    <td colspan="2" class="unit"><?=$tipo->cant*$producto->cant?></td>
                                 </tr>
                                
 
@@ -99,9 +128,9 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
                             
                         }
                         ?>
-                        <tr>
-                        <td colspan="1" class="desc"></td>
-                        <td colspan="3" class="service">Cantidad Total de Productos (g)</td>
+                        <tr class="warning">
+                        
+                        <td colspan="4" class="service">Cantidad Total de Productos (g)</td>
                        
                         
                         <td class="unit"><?=$cantpro?></td>
@@ -115,13 +144,13 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
         
           
        
-          <tr>
-            <td colspan="4">CANTIDAD TOTAL DE pRODUCTOS</td>
-            <td class="total"><?=$canttotalprod?></td>
+          <tr class="info">
+            <td colspan="4"><strong>CANTIDAD TOTAL DE PRODUCTOS</strong></td>
+            <td class="total"><strong><?=$canttotalprod?></strong></td>
           </tr>
-          <tr>
-            <td colspan="4" class="grand total">PRECIO TOTAL</td>
-            <td class="grand total">$<?=$preciototal?></td>
+          <tr class="info">
+            <td colspan="4"><strong> TOTAL</strong></td>
+            <td ><strong><?=$preciototal?></strong></td>
           </tr>
         </tbody>
       </table>

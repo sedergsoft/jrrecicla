@@ -572,38 +572,38 @@ public static function CuentaSolicitudTotal()
     {
         $modelSolicitud = Solicitud::find()->andWhere(['id'=>$solicitudid])->one();
         $modelProductos = ProductosSolicitud::find()->andWhere(['status'=>1,'solicitudid'=>$solicitudid])->all();
-        // $searchModelProductos = new ProductosSolicitudSearch();
-        // $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
-        // $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$model->id])->all();
-       // $tipoProductos = SolicitudController::Obtenerproductos($id);
-      
-      
-    //    $tipoProductosproducto = TipoProductoProductos::find()->andWhere(['status'=>1])->all();
-    //    $dataProviderTipo = TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])->all();
-    //     $content =  $this->renderPartial('facturas', [
-    //         'modelProductos' => $modelProductos,
-    //         'dataProviderTipo' => $dataProviderTipo,
-    //         'modelSolicitud' => $modelSolicitud,
-    //         'tipoProductosproducto' => $tipoProductosproducto,
-    //     ]);
-
-
-    $model=$this->findModel($solicitudid);
-    if($model)
-    {
         $searchModelProductos = new ProductosSolicitudSearch();
         $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
-        $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$model->id])->all();
-        //$tipoProductos = SolicitudController::Obtenerproductos($id);
-        $dataProviderTipo = new ActiveDataProvider(['query'=>TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])]);
-        $content =  $this->renderPartial('detalles', [
-                    'modelSolicitud' => $model,
-                    'tipoProductos' => $dataProviderTipo,
-                    'searchModelProductos'=>$searchModelProductos,
-                    'dataProviderProductos'=>$dataProviderProductos,
+        $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$solicitudid])->all();
+       $tipoProductos = SolicitudController::Obtenerproductos($solicitudid);
+      
+      
+       $tipoProductosproducto = TipoProductoProductos::find()->andWhere(['status'=>1])->all();
+       $dataProviderTipo = TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])->all();
+        $content =  $this->renderPartial('facturas', [
+            'modelProductos' => $modelProductos,
+            'dataProviderTipo' => $dataProviderTipo,
+            'modelSolicitud' => $modelSolicitud,
+            'tipoProductosproducto' => $tipoProductosproducto,
+        ]);
 
-                ]);
-    }
+
+    // $model=$this->findModel($solicitudid);
+    // if($model)
+    // {
+    //     $searchModelProductos = new ProductosSolicitudSearch();
+    //     $dataProviderProductos = $searchModelProductos->search($this->request->queryParams);
+    //     $dataProviderProductos->query->andWhere(['status'=>1,'solicitudid'=>$model->id])->all();
+    //     //$tipoProductos = SolicitudController::Obtenerproductos($id);
+    //     $dataProviderTipo = new ActiveDataProvider(['query'=>TipoProducto::find()->innerJoinWith('tipoProductoProductos')->innerJoinWith('tipoProductoProductos.productos')->JoinWith(['tipoProductoProductos.productos.productosSolicituds'])->andWhere(['productos_solicitud.solicitudid'=>$solicitudid])]);
+    //     $content =  $this->renderPartial('detalles', [
+    //                 'modelSolicitud' => $model,
+    //                 'tipoProductos' => $dataProviderTipo,
+    //                 'searchModelProductos'=>$searchModelProductos,
+    //                 'dataProviderProductos'=>$dataProviderProductos,
+
+    //             ]);
+    // }
 
     //     $pdf = new Pdf([
     //         // set to use core fonts only
@@ -651,18 +651,27 @@ public static function CuentaSolicitudTotal()
         'content' => $content,  
         // format content from your own css file if needed or use the
         // enhanced bootstrap css built by Krajee for mPDF formatting 
-        //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+        'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
         //'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/styleinvoice.min.css',
         // any css to be embedded if required
-        //'cssInline' => '.kv-heading-1{font-size:18px}', 
-         // set mPDF properties on the fly
-        'options' => ['title' => 'Krajee Report Title'],
-         // call mPDF methods on the fly
-        'methods' => [ 
-            'SetHeader'=>['Krajee Report Header'], 
-            'SetFooter'=>['{PAGENO}'],
-        ]
-    ]);
+        // 'cssInline' => ['td{font-size:20px},th{font-size:20px},div.panel-heading{font-size:20px}'],
+        // 'cssInline' => 'td{font-size:20px},th{font-size:20px},div.panel-heading{font-size:20px},.panel-title {
+        //     margin-top: 0;
+        //     margin-bottom: 0;
+        //     font-size: 20px;
+        //     color: inherit;
+        // }
+        
+        // h1',     // format content from your own css file if needed or use the
+               'filename' => "Solicitud No. ".$modelSolicitud->id." - Generado: ".date('M, Y').'.pdf',
+               'options' => ['title' => "Módelo Estadístico del Proceso evaluativo( ) - Generado: ".date('M, Y')],
+                 // call mPDF methods on the fly
+                
+                'methods' => [ 
+                    'SetHeader'=>["Solicitud No. ".$modelSolicitud->id." - Generado: ".date('M, Y')], 
+                    'SetFooter'=>['  ©  Reyciklando App [pág - {PAGENO}]'],
+                ]
+            ]);
     
     // return the pdf output as per the destination setting
     return $pdf->render(); 
