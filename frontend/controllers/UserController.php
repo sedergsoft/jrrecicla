@@ -128,6 +128,9 @@ class UserController extends Controller
         
                 if($user->save())
                 {
+                Yii::$app->db->createCommand("DELETE FROM `auth_assignment` WHERE `auth_assignment`.`user_id` = '".$user->id."'")->execute();
+                Yii::$app->db->createCommand("INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES ('".Rol::find()->where(['id'=>$user->rolid])->one()->rol."', '".$user->id."',  ". time().");")->execute();
+                
 
                 return $this->redirect(['view', 'id' => $user->id]);
                 }
