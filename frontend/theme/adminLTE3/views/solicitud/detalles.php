@@ -25,6 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
     'hover'=>true,
     'mode'=>DetailView::MODE_VIEW,
     'panel'=>[
+       
+        'footer' => '<div class="text-center text-muted">This is a sample footer message for the detail view.</div>',
+   
         'heading'=>$this->title,
         'type'=>DetailView::TYPE_INFO,
     ],

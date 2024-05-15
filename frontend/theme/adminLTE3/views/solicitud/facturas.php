@@ -2,12 +2,18 @@
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 
 ?>
+
+<div class="d-flex justify-content-between">
+  <img class="pull-right"  src=<?php echo $assetDir."/img/logoReyciklando.png" ?> style="display:inline; horizontal-align: top; height:40px;"/>
+  <h1>SOLICITUD</h1>
+  
+</div>
+
   <header >
     <table>
       <thead>
           <tr class="info">
-            <th colspan="5" ><h1>SOLICITUD</h1></th>
-            
+            <th colspan="5" >
             
           </tr>
         </thead>
@@ -46,7 +52,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
       ?>
           </td>
           
-          <td>
+          <td style="width: 602px;">
             
                 <div class="float-right float-end pull-right" >
                   <div>Reyciklando App</div>

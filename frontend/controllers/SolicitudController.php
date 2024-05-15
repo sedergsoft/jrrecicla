@@ -668,7 +668,7 @@ public static function CuentaSolicitudTotal()
                  // call mPDF methods on the fly
                 
                 'methods' => [ 
-                    'SetHeader'=>["Solicitud No. ".$modelSolicitud->id." - Generado: ".date('M, Y')], 
+                    'SetHeader'=>["Solicituds No. ".$modelSolicitud->id." - Generado: ".date('M, Y')] , 
                     'SetFooter'=>['  ©  Reyciklando App [pág - {PAGENO}]'],
                 ]
             ]);
