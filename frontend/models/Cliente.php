@@ -32,6 +32,13 @@ class Cliente extends \yii\db\ActiveRecord
         return 'cliente';
     }
 
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

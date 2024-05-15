@@ -23,6 +23,13 @@ class Cargos extends \yii\db\ActiveRecord
         return 'cargos';
     }
 
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

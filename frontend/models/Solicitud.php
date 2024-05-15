@@ -29,6 +29,13 @@ class Solicitud extends \yii\db\ActiveRecord
     {
         return 'solicitud';
     }
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
 
     /**
      * {@inheritdoc}

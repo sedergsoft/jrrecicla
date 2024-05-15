@@ -26,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
     'mode'=>DetailView::MODE_VIEW,
     'panel'=>[
        
-        'footer' => '<div class="text-center text-muted">This is a sample footer message for the detail view.</div>',
-   
-        'heading'=>$this->title,
+        // 'footer' => '<div class="text-center text-muted">This is a sample footer message for the detail view.</div>',
+        
+        'heading'=>$this->title.' '.Html::a('<i class="glyphicon glyphicon-plus"></i> Incluir trabajadores', ['proyectos-trabajadores/createpro','codpro'=>$modelSolicitud->id]),
         'type'=>DetailView::TYPE_INFO,
     ],
     'attributes'=>[

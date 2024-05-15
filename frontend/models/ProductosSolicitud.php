@@ -24,6 +24,13 @@ class ProductosSolicitud extends \yii\db\ActiveRecord
     {
         return 'productos_solicitud';
     }
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
 
     /**
      * {@inheritdoc}

@@ -22,6 +22,13 @@ class TipoProducto extends \yii\db\ActiveRecord
     {
         return 'tipo_producto';
     }
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
 
     /**
      * {@inheritdoc}

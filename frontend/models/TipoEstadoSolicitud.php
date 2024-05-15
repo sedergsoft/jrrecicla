@@ -22,6 +22,13 @@ class TipoEstadoSolicitud extends \yii\db\ActiveRecord
     {
         return 'tipo_estado_solicitud';
     }
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
 
     /**
      * {@inheritdoc}

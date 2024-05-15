@@ -25,6 +25,13 @@ class Recogida extends \yii\db\ActiveRecord
     {
         return 'recogida';
     }
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
 
     /**
      * {@inheritdoc}

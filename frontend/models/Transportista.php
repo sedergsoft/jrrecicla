@@ -23,6 +23,13 @@ class Transportista extends \yii\db\ActiveRecord
     {
         return 'transportista';
     }
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
 
     /**
      * {@inheritdoc}

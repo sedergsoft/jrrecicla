@@ -23,6 +23,13 @@ class GrupoHotelero extends \yii\db\ActiveRecord
         return 'grupo_hotelero';
     }
 
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */

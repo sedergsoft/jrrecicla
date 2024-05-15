@@ -26,6 +26,13 @@ class Productos extends \yii\db\ActiveRecord
     {
         return 'productos';
     }
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+
 
     /**
      * {@inheritdoc}

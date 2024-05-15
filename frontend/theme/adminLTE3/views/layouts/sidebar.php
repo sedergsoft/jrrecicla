@@ -168,7 +168,7 @@
                             ['label' => 'Permisos', 'url' => ['/rbac/assignment'], 'iconStyle' => 'fa','icon' => 'user-shield' ],
                         ['label' => 'Roles', 'url' => ['/rbac/role'],'iconStyle' => 'fa', 'icon' => 'user-tag'/*, 'iconClassAdded'=>'fa-9x'*/],
                         ['label' => 'Base De Datos', 'url' => ['/backuprestore/index'], 'iconStyle' => 'fa', 'icon' => 'database'],
-                        ['label' => 'Trazas', 'url' => ['/solicitudes/rechazadas'],'iconStyle' => 'fa', 'icon' => 'shoe-prints'],
+                        ['label' => 'Trazas', 'url' => ['/audit/default'],'iconStyle' => 'fa', 'icon' => 'shoe-prints'],
                         // ['label' => 'Solicitudes Pendientes', 'url' => ['/solicitudes/pendientes'], 'iconStyle' => 'fa', 'icon' => 'clock'],
                             // ['label' => 'Solicitudes Rechazadas', 'url' => ['/solicitudes/rechazadas'],'iconStyle' => 'fa', 'icon' => 'times'],
                             // ['label' => 'Historial ', 'url' => ['/solicitudes/historial'],'iconStyle' => 'fa', 'icon' => 'list'],
