@@ -10,57 +10,58 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 </div>
 
   <header >
-    <table>
+    <table class="table table-bordered">
       <thead>
           <tr class="info">
-            <th colspan="5" >
+           
             
           </tr>
         </thead>
         <tbody>
           <tr>
 
-            <td>
-              <div class="col-6" style="float: left;" >
-                <div><span>ID SOLICITUD</span> </div>
-                <div><span>CLIENTE</span> </div>
-                <div><span>REP.</span> </div>
-                <div><span>ADDRESS</span></div>
-                <div><span>EMAIL</span></div>
-                <div><span>FECHA SOL. </span> </div>
-            </div>
-          </td>
-            <td>
-                  
-      <?php
-      if($modelSolicitud)
-      {
-        $preciototal = 0;
-        $canttotalprod = 0;
-        
-        ?>
-              <div class="col-6" style="float: left;" >
-                <div><?=$modelSolicitud->id?></div>
-                <div><?=$modelSolicitud->cliente->instalacion?></div>
-                <div><?=$modelSolicitud->cliente->representante?></div>
-                <div><?=$modelSolicitud->cliente->direccion?></div>
-                <div> <?=$modelSolicitud->cliente->email?></div>
-                <div><?=$modelSolicitud->fecha_solic?></div>
-            </div>
-                        <?php
-      }
-      ?>
-          </td>
+                    <td >
+                      <div class="col-6" style="float: left;" >
+                        <div><span>ID SOLICITUD</span> </div>
+                        <div><span>CLIENTE</span> </div>
+                        <div><span>REP.</span> </div>
+                        <div><span>ADDRESS</span></div>
+                        <div><span>EMAIL</span></div>
+                        <div><span>FECHA SOL. </span> </div>
+                    </div>
+                  </td>
           
-          <td style="width: 602px;">
-            
-                <div class="float-right float-end pull-right" >
-                  <div>Reyciklando App</div>
-                  <div>reyciklando.reciclaje.cu</div>
-                
-                  <div><a href="mailto:reyciklando@gmail.com">reyciklando@gmail.com</a></div>
-                </div>
-          </td>
+                    <td>
+                          
+                          <?php
+                          if($modelSolicitud)
+                          {
+                            $preciototal = 0;
+                            $canttotalprod = 0;
+                            
+                            ?>
+                                  <div class="col-6" style="float: left;" >
+                                    <div><?=$modelSolicitud->id?></div>
+                                    <div><?=$modelSolicitud->cliente->instalacion?></div>
+                                    <div><?=$modelSolicitud->cliente->representante?></div>
+                                    <div><?=$modelSolicitud->cliente->direccion?></div>
+                                    <div> <?=$modelSolicitud->cliente->email?></div>
+                                    <div><?=$modelSolicitud->fecha_solic?></div>
+                                </div>
+                                            <?php
+                          }
+                          ?>
+                  </td>
+          
+                  <td style="width: 602px;">
+                    
+                        <div class="float-right float-end pull-right" >
+                          <div>Reyciklando App</div>
+                          <div>reyciklando.reciclaje.cu</div>
+                        
+                          <div><a href="mailto:reyciklando@gmail.com">reyciklando@gmail.com</a></div>
+                        </div>
+                  </td>
 
             </tr>
         </tbody>

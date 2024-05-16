@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use kartik\detail\DetailView;
 use kartik\grid\GridView;
 use kartik\icons\Icon;
+use yii\bootstrap4\ButtonGroup;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\Solicitud $model */
@@ -28,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
        
         // 'footer' => '<div class="text-center text-muted">This is a sample footer message for the detail view.</div>',
         
-        'heading'=>$this->title.' '.Html::a('<i class="glyphicon glyphicon-plus"></i> Incluir trabajadores', ['proyectos-trabajadores/createpro','codpro'=>$modelSolicitud->id]),
+        'heading'=>$this->title.' '.ButtonGroup::widget([
+            'buttons' => [ Html::a('<i class="fas fa-file-export"></i>', ['exportsolicitud','solicitudid'=>$modelSolicitud->id], ['data-pjax' => 0, 'class' => 'btn btn-outline-light', 'title' => 'Exportar ficha de Solicitud a pdf','data-confirm'=>'Está seguro de querer exportar la ficha de este proyecto?']),
+            ],'options'=>['class'=>' float-right btn-group-sm','style'=>"margin-right: 20px;"] ]),
         'type'=>DetailView::TYPE_INFO,
     ],
     'attributes'=>[
