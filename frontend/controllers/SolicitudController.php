@@ -59,18 +59,24 @@ class SolicitudController extends Controller
         $nuevas =  SolicitudController::CuentaSolicitud(1);
         $atendidas =  SolicitudController::CuentaSolicitud(4);
         $pendientes =  SolicitudController::CuentaSolicitud(3);
+        $Vpendientes =  SolicitudController::importeGeneralVentas(3);
         $canceladas =  SolicitudController::CuentaSolicitud(5);
         $activas = SolicitudController::CuentaSolicitudActiva();
         $totalSol = SolicitudController::CuentaSolicitudTotal();
+        $ventas = SolicitudController::importeGeneralVentas(4);
+        $Vcancelada = SolicitudController::importeGeneralVentas(5);
         $solicitudes = SolicitudController::Activas();
         return $this->render('reportesolicitudes',[
             'nuevas' => $nuevas,
             'atendidas' => $atendidas,
             'pendientes' => $pendientes,
+            'Vpendientes' => $Vpendientes,
+            'Vcancelada' => $Vcancelada,
             'canceladas' => $canceladas,
             'activas' => $activas,
             'totalSol' => $totalSol,
             'solicitudes'=>$solicitudes,
+            'ventas'=>$ventas,
         ]);
         
     }
@@ -104,6 +110,20 @@ class SolicitudController extends Controller
         }
 
         return $this->render('atendidas', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionReport()
+    {
+        $searchModel = new SolicitudSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
+
+        return $this->render('report', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -493,8 +513,8 @@ public static function CuentaSolicitudTotal()
 
     public static function Notificarestado($solicitud,$tipo = NULL)
     {
-       if($tipo == 2)
-       {
+        if($tipo == 2)
+        {
         $recogida=Recogida::find()->andWhere(['status'=>1,'solicitudid'=>$solicitud->id])->one();
         return Yii::$app
         ->mailer
@@ -506,7 +526,7 @@ public static function CuentaSolicitudTotal()
         ->setTo($solicitud->cliente->email)
         ->setSubject('Cambio de estado de la Solicitud ' . Yii::$app->name)
         ->send();
-       } 
+        } 
         return Yii::$app
         ->mailer
         ->compose(
@@ -527,11 +547,7 @@ public static function CuentaSolicitudTotal()
         return $position?substr($value,0,$position+3):$value; 
     }
 
-    // public function actionSolicitudesxcliente()
-    // {
-    //     $solicitudes = Cliente::find()->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
-    // return print_r($solicitudes);
-    // }
+    
     public function actionSolicitudesxcliente()
     {
         $searchModel = new ClienteSearch();
@@ -540,7 +556,6 @@ public static function CuentaSolicitudTotal()
         {
             $dataProvider->query->andWhere(['id'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
         }
-       // $dataProvider->query->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
         return $this->render('Solxcli', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -554,7 +569,6 @@ public static function CuentaSolicitudTotal()
         {
             $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
         }
-       // $dataProvider->query->select(['{{cliente}}.*','COUNT({{solicitud}}.id) AS sol_count'])->joinWith('solicituds')->groupBy('{{cliente}}.id')->all();
         return $this->render('cantxprod', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

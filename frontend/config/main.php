@@ -58,6 +58,7 @@ return [
                 'solicitudes/pendientes'=>'solicitud/pendiente',
                 'solicitudes/rechazadas'=>'solicitud/rechazadas',
                 'solicitudes/historial'=>'solicitud/historial',
+                'reporte/solicitudes'=>'solicitud/reportesolicitudes',
                 '<controller:[\w-]+>' => '<controller>/index',
                 '<controller:[\w-]+>/<id:\d+>'=> '<controller>/view',
             ],
@@ -107,10 +108,10 @@ return [
                   'audit/error',
                  //'audit/curl',
                   'audit/trail',
-                  'app/views' => [
-                      'class' => 'bedezign\yii2\audit\panels\ViewsPanel',
-                      // ...
-                  ],
+                //   'app/views' => [
+                //       'class' => 'bedezign\yii2\audit\panels\ViewsPanel',
+                //       // ...
+                //   ],
               ],
               'panelsMerge' => [
                  // ... merge data (see below)
