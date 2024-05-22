@@ -93,6 +93,21 @@ class SolicitudController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionAtendidas()
+    {
+        $searchModel = new SolicitudSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['status'=>1,'tipo_estado_solicitudid'=>4])->all();
+        if(Yii::$app->user->identity->rolid!=1)
+        {
+            $dataProvider->query->andWhere(['clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
+        }
+
+        return $this->render('atendidas', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Solicitud model.
