@@ -88,7 +88,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                                                         'icon' => 'fas fa-dollar-sign',
                                                         'linkText'=>'Ver Detalles',
                                                         'theme'=>'success',
-                                                        'linkUrl'=> Url::to(['/grupo-hotelero/index']),
+                                                        'linkUrl'=> Url::to(['/solicitudes/index']),
                                 ])?>
                   
                     </div>
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                                                                     'icon' => 'fas fa-money-check-alt',
                                                                     'linkText'=>'Ver Detalles',
                                                                     'theme'=>'danger',
-                                                                    'linkUrl'=> Url::to(['/grupo-hotelero/index']),
+                                                                    'linkUrl'=> Url::to(['/solicitudes/pendientes']),
                                 ])?>
                     
                     
