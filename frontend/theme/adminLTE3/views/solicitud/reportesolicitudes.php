@@ -6,13 +6,14 @@ use frontend\controllers\UserController;
 use frontend\models\Cliente;
 use frontend\models\GrupoHotelero;
 use frontend\models\Solicitud;
+use miloschuman\highcharts\Highcharts;
 use yii\helpers\Url;
 
 if (Yii::$app->user->identity->rolid != 1)
      {
         ?>
         <div class="row">
-        <div class="col-12 col-sm-6 col-md-6">
+        <div class="col-12 col-sm-12 col-md-6">
         <?= \hail812\adminlte\widgets\InfoBox::widget([
                             'text' => 'Cantidad de Solicitudes',
                             'number' => Solicitud::find()->andWhere(['status'=>1,'clienteid'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->count(),
@@ -20,10 +21,10 @@ if (Yii::$app->user->identity->rolid != 1)
                         ]) ?>
         
         </div>
-        <div class="col-12 col-sm-6 col-md-6">
+        <div class="col-12 col-sm-12 col-md-6">
            <?= \hail812\adminlte\widgets\InfoBox::widget([
                 'text' => 'Importe de Ventas',
-                'number' =>Yii::$app->formatter->asCurrency(ClienteController::clienteimporte(UserController::findModel(Yii::$app->user->getId())->empresa->id,4)),
+                'number' =>$ventas = Yii::$app->formatter->asCurrency(ClienteController::clienteimporte(UserController::findModel(Yii::$app->user->getId())->empresa->id,4)),
                 'icon' => 'fas fa-dollar-sign',
                 'iconTheme'=>'primary'
             ]) ?>
@@ -34,47 +35,27 @@ if (Yii::$app->user->identity->rolid != 1)
     ?>
                 <div class="row">
                    
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                    <?= \hail812\adminlte\widgets\SmallBox::widget([
-                            'title' => Cliente::find()->andWhere(['status'=>1])->count(),
-                            'text' => 'Clientes',
-                            'icon' => 'fas fa-users',
-                            'linkText'=>'Ver Detalles',
-                            'linkUrl'=> Url::to(['/cliente/index']),
-                        ])?>
-                     
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                    <?= \hail812\adminlte\widgets\SmallBox::widget([
-                                    'title' => GrupoHotelero::find()->andWhere(['status'=>1])->count(),
-                                    'text' => 'Cadenas',
-                                    'icon' => 'fas fa-hotel',
-                                    'linkText'=>'Ver Detalles',
-                                    'theme'=>'primary',
-                                    'linkUrl'=> Url::to(['/grupo-hotelero/index']),
-                                ])?>
-                        
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                   
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                         
                             <?= \hail812\adminlte\widgets\SmallBox::widget([
-                                                        'title' =>Yii::$app->formatter->asCurrency(SolicitudController::importeGeneralVentas(4)),
+                                                        'title' =>Yii::$app->formatter->asCurrency($ventas),
                                                         'text' => 'Importe de Compras',
                                                         'icon' => 'fas fa-dollar-sign',
-                                                        'linkText'=>'Ver Detalles',
+                                                        'linkText'=>'Reyciklando',
                                                         'theme'=>'success',
-                                                        'linkUrl'=> Url::to(['/grupo-hotelero/index']),
+                                                        //'linkUrl'=> Url::to(['/grupo-hotelero/index']),
                                 ])?>
                   
                     </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <?= \hail812\adminlte\widgets\SmallBox::widget([
-                                                                    'title' =>Yii::$app->formatter->asCurrency(SolicitudController::importeGeneralVentas(3)),
+                                                                    'title' =>Yii::$app->formatter->asCurrency($Vpendientes),
                                                                     'text' => 'Importe de Compras Pendientes',
                                                                     'icon' => 'fas fa-money-check-alt',
-                                                                    'linkText'=>'Ver Detalles',
+                                                                     'linkText'=>'Reyciklando',
                                                                     'theme'=>'danger',
-                                                                    'linkUrl'=> Url::to(['/grupo-hotelero/index']),
+                                                                  //  'linkUrl'=> Url::to(['/grupo-hotelero/index']),
                                 ])?>
                     
                     
@@ -83,19 +64,8 @@ if (Yii::$app->user->identity->rolid != 1)
                
           <?php  } ?>
 
-          <div class="row">
-    <div class="col-md-6 col-sm-6 col-12 col-lg-3">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                 'id' => 'message-info-box',
-                'text' => 'Solicitudes Activas',
-                'theme'=>'info',
-                'number' => $activas,
-                'icon' => 'fas fa-paste',
-            ]) 
-           
-            ?>
-        </div>
-        <div class="col-md-6 col-sm-6 col-12 col-lg-3">
+          <div class="row"> 
+        <div class="col-md-6 col-sm-12 col-12 col-lg-4">
             <?php
            // echo Yii::$app->formatter->asPercent(floatval(-0.009343));
             $infoBox = \hail812\adminlte\widgets\InfoBox::begin([
@@ -118,7 +88,7 @@ if (Yii::$app->user->identity->rolid != 1)
             ]) ?>
             <?php \hail812\adminlte\widgets\InfoBox::end() ?>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
             <?php
            // echo Yii::$app->formatter->asPercent(floatval(-0.009343));
             $infoBox = \hail812\adminlte\widgets\InfoBox::begin([
@@ -136,7 +106,7 @@ if (Yii::$app->user->identity->rolid != 1)
             <?php \hail812\adminlte\widgets\InfoBox::end() ?>
         </div>
         
-        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
             <?php
            // echo Yii::$app->formatter->asPercent(floatval(-0.009343));
             $infoBox = \hail812\adminlte\widgets\InfoBox::begin([
@@ -152,6 +122,86 @@ if (Yii::$app->user->identity->rolid != 1)
             ]) ?>
         
             <?php \hail812\adminlte\widgets\InfoBox::end() ?>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+    <?php     echo Highcharts::widget([
+    'scripts' => [
+        'modules/exporting',
+        'themes/grid-light',
+    ],
+    'options' => [
+        'title' => [
+            'text' => 'Solicitudes',
+        ],
+        'xAxis' => [
+            'categories' => ['Solicitudes'],
+        ],
+        
+                'series' => [
+                    [
+                        'type' => 'column',
+                        'name' => 'Atendidas',
+                        'data' => [$atendidas],
+                    ],
+                    [
+                        'type' => 'column',
+                        'name' => 'Pendientes',
+                        'color'=>'orange',
+                        'data' => [$pendientes],
+                    ],
+                    [
+                        'type' => 'column',
+                        'name' => 'Canceladas',
+                        'color'=>'red',
+                        'data' => [$canceladas],
+                    ],
+           
+        ],
+    ]
+]);
+?>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+    <?php     echo Highcharts::widget([
+    'scripts' => [
+        'modules/exporting',
+       // 'themes/grid-light',
+    ],
+    'options' => [
+        'title' => [
+            'text' => 'Importes',
+        ],
+        'xAxis' => [
+            'categories' => ['Solicitudes'],
+        ],
+        // 'yAxis' => [
+        //     'categories' => ['Pesos'],
+        // ],
+        
+                'series' => [
+                    [
+                        'type' => 'bar',
+                        'name' => 'Ventas Realizadas',
+                        'color'=>'green',
+                        'data' => [$ventas],
+                    ],
+                    [
+                        'type' => 'bar',
+                        'name' => 'Ventas Pendientes',
+                        'color'=>'orange',
+                        'data' => [$Vpendientes],
+                    ],
+                    [
+                        'type' => 'bar',
+                        'color'=>'red',
+                        'name' => 'Ventas Canceladas',
+                        'data' => [$Vcancelada],
+                    ],
+           
+        ],
+    ]
+]);
+?>
         </div>
       
     </div>

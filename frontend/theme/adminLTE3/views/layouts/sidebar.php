@@ -77,7 +77,7 @@
                             ['label' => 'Tiempo de respuesta', 'url' => ['/solicitud/tiempo'], 'iconStyle' => 'fa','icon' => 'clock' ],
                             ['label' => 'Solicitudes por Clientes', 'url' => ['/solicitud/solicitudesxcliente','id'=> Yii::$app->user->getId()],'iconStyle' => 'fa', 'icon' => 'fingerprint'/*, 'iconClassAdded'=>'fa-9x'*/],
                             ['label' => 'Cantidad de Productos', 'url' => ['/tipo-producto/cant'], 'iconStyle' => 'fa', 'icon' => 'clock'],
-                            // ['label' => 'Solicitudes Rechazadas', 'url' => ['/solicitudes/rechazadas'],'iconStyle' => 'fa', 'icon' => 'times'],
+                            ['label' => 'Informe de Solicitudes', 'url' => ['/reporte/solicitudes'],'iconStyle' => 'fa', 'icon' => 'times'],
                             // ['label' => 'Historial ', 'url' => ['/solicitudes/historial'],'iconStyle' => 'fa', 'icon' => 'list'],
                                         
                             //  ['label' => 'Inactive Page', 'iconStyle' => 'far'],
@@ -142,7 +142,7 @@
                             ['label' => 'Tiempo de respuesta', 'url' => ['/solicitud/tiempo'], 'iconStyle' => 'fa','icon' => 'clock' ],
                             ['label' => 'Solicitudes por Clientes', 'url' => ['/solicitud/solicitudesxcliente','id'=> Yii::$app->user->getId()],'iconStyle' => 'fa', 'icon' => 'fingerprint'/*, 'iconClassAdded'=>'fa-9x'*/],
                             ['label' => 'Cantidad de Productos', 'url' => ['/tipo-producto/cant'], 'iconStyle' => 'fa', 'icon' => 'clock'],
-                            // ['label' => 'Solicitudes Rechazadas', 'url' => ['/solicitudes/rechazadas'],'iconStyle' => 'fa', 'icon' => 'times'],
+                            ['label' => 'Informe de Solicitudes', 'url' => ['/reporte/solicitudes'],'iconStyle' => 'fa', 'icon' => 'times'],
                             // ['label' => 'Historial ', 'url' => ['/solicitudes/historial'],'iconStyle' => 'fa', 'icon' => 'list'],
                                         
                             //  ['label' => 'Inactive Page', 'iconStyle' => 'far'],
