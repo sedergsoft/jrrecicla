@@ -1,10 +1,12 @@
 <?php
 
 use frontend\models\Recogida;
+use frontend\models\Transportista;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\icons\Icon;
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 /** @var frontend\models\RecogidaSearch $searchModel */
@@ -26,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'heading'=>'<h3 class="panel-title">'.Icon::show('address-book', ['class'=>'fa', 'framework' => Icon::FA]). $this->title.' </h3>',
             'type'=>'primary',
           
-            'before'=>Html::a(Icon::show('plus', ['class'=>'fa', 'framework' => Icon::FA])." Agregar", ['create'], ['class' => 'btn btn-success', 'id'=>'agregar']),
+          //  'before'=>Html::a(Icon::show('plus', ['class'=>'fa', 'framework' => Icon::FA])." Agregar", ['create'], ['class' => 'btn btn-success', 'id'=>'agregar']),
            
         ],
 
@@ -34,27 +36,80 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'transportistaid',
-            'solicitudid',
+            //'id',
+            [
+             'attribute'=>'transportistaid',
+             'label'=>'Chofer',
+             'value'=>function($model)
+             {
+
+                 return $model->transportista->chofer;
+             },
+             'filterType' => GridView::FILTER_SELECT2,
+             'filter' => ArrayHelper::map(Transportista::find()->orderBy('id')->andWhere(['status'=>1])->asArray()->all(), 'id', 'chofer'),
+             'filterWidgetOptions' => [
+                 'pluginOptions' => ['allowClear' => true],
+             ],
+             'filterInputOptions' => ['placeholder' => 'Seleccione...'],
+  
+             
+            ],
+            [
+             'label'=>'Vehiculo',
+             'attribute'=>'transportistaid',
+             'value'=>function($model)
+             {
+
+                 return $model->transportista->vehiculo;
+             }
+            ],
+            [
+             'attribute'=>'solicitudid',
+             'label'=>'Instalación',
+             'value'=>function($model)
+             {
+
+                 return $model->solicitud->cliente->instalacion;
+             }
+            ],
+            [
+             'attribute'=>'solicitudid',
+             'label'=>'Solicitud',
+             'value'=>function($model)
+             {
+
+                 return $model->solicitudid;
+             }
+            ],
             'fecha_recogida',
-            'status',
-            ['class' => 'yii\grid\ActionColumn',
-            'template'=>'{view}',
-            'buttons' => [
+            [
+             'attribute'=>'solicitudid',
+             'label'=>'Estado',
+             'value'=>function($model)
+             {
+
+                 return $model->solicitud->tipoEstadoSolicitud->estado;
+             }
+            ],
+            //'transportistaid',
+            //'solicitudid',
+            //'status',
+            // ['class' => 'yii\grid\ActionColumn',
+            // 'template'=>'{view}',
+            // 'buttons' => [
                  
-                'view' => function ($url, $data){
+            //     'view' => function ($url, $data){
                                                       
-                                                          return Html::a('<i class="fa fa-eye"></i>', 
-                                                                  ['view','id'=>$data['id']],
+            //                                               return Html::a('<i class="fa fa-eye"></i>', 
+            //                                                       ['view','id'=>$data['id']],
                                                                   
-                                                                  ['class' => 'btn btn-info btn-xs',
-                                                                    'title' => 'Ver'  
-                                                                      ]);
+            //                                                       ['class' => 'btn btn-info btn-xs',
+            //                                                         'title' => 'Ver'  
+            //                                                           ]);
                                                       
-                                                       }, 
-            ],
-            ],
+            //                                            }, 
+            // ],
+            // ],
         ],
     ]); ?>
 
