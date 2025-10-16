@@ -22,11 +22,10 @@ return [
                           
                         ],
                     ],
-                    'formatter' => [
-                    'currencyCode' => '$',
-                    //    'locale' => 'ru-RU',
-                        'numberFormatterSymbols'=>'$',
-                      ],
+                   'formatter' => [
+                                     'thousandSeparator' => ',',
+                                     'currencyCode' => 'CUP',
+                                    ],
     ],
     'modules' => [
         'rbac' => [

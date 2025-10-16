@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string $vehiculo
  * @property string $chofer
+ * @property string $email
+ * @property string $telefono
  * @property int $status
  *
  * @property Recogida[] $recogidas
@@ -37,10 +39,10 @@ class Transportista extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['vehiculo', 'chofer'], 'required'],
+            [['vehiculo', 'chofer','email'], 'required'],
             [['status'], 'integer'],
             [['vehiculo'], 'string', 'max' => 255],
-            [['chofer'], 'string', 'max' => 1000],
+            [['chofer','telefono'], 'string', 'max' => 1000],
         ];
     }
 
@@ -53,6 +55,8 @@ class Transportista extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'vehiculo' => Yii::t('app', 'Vehiculo'),
             'chofer' => Yii::t('app', 'Chofer'),
+            'email' => Yii::t('app', 'Correo electronico'),
+            'telefono' => Yii::t('app', 'Teléfono'),
             'status' => Yii::t('app', 'Status'),
         ];
     }

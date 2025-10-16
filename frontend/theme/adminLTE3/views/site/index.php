@@ -154,9 +154,9 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                //  'theme' => 'info',
                 'icon' => 'fas fa-clipboard',
                 'progress' => [
-                    'width' => $p =  ($nuevas/$activas)*100 .'%',
+                    'width' => $activas==0?0:$p =  ($nuevas/$activas)*100 .'%',
                    // 'description' => Yii::$app->formatter->asPercent(0.125, 2),
-                'description' =>  SolicitudController::decimal(($nuevas/$activas)*100)   .' del total de Solicitudes activas'
+                'description' =>  $activas==0?0:SolicitudController::decimal(($nuevas/$activas)*100)   .' del total de Solicitudes activas'
                 ]
             ]) ?>
             <?= \hail812\adminlte\widgets\Ribbon::widget([
@@ -177,9 +177,9 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'theme' => 'warning',
                 'icon' => 'fas fa-clipboard',
                 'progress' => [
-                    'width' => $p =  ($pendientes/$activas)*100 .'%',
+                    'width' => $activas==0?0:$p =  ($pendientes/$activas)*100 .'%',
                    // 'description' => Yii::$app->formatter->asPercent(0.125, 2),
-                'description' =>  SolicitudController::decimal(($pendientes/$activas)*100)   .' del total de Solicitudes activas'
+                'description' =>  $activas==0?0:SolicitudController::decimal(($pendientes/$activas)*100)   .' del total de Solicitudes activas'
                 ]
             ]) ?>
         
@@ -195,9 +195,9 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'theme' => 'success',
                 'icon' => 'fas fa-clipboard-check',
                 'progress' => [
-                    'width' => $p =  ($atendidas/$activas)*100 .'%',
+                    'width' => $activas==0?0:$p =  ($atendidas/$activas)*100 .'%',
                    // 'description' => Yii::$app->formatter->asPercent(0.125, 2),
-                'description' =>  SolicitudController::decimal(($atendidas/$activas)*100)   .' del total de Solicitudes',
+                'description' =>  $activas==0?0:SolicitudController::decimal(($atendidas/$activas)*100)   .' del total de Solicitudes',
                 ]
             ]) ?>
         

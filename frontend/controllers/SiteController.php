@@ -108,7 +108,7 @@ class SiteController extends Controller
                 'solicitudes'=>$solicitudes,
             ]);
         }
-        $this->redirect(['login']);
+        return $this->redirect(['login']);
     }
 
     /**

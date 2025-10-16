@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_at',
             //'updated_at',
             //'last_login',
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
             'template' => '{view} {password} {Activar}',
                'buttons' => [
                    'password' => function ($url, $model){

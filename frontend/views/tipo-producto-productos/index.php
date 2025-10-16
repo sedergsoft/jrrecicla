@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'tipo_productoid',
             'productosid',
             'status',
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
             'template'=>'{view}',
             'buttons' => [
                  

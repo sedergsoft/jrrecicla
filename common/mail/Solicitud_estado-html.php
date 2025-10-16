@@ -137,7 +137,7 @@ $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['solicitud/detalles', 'i
 														<tr>
 															<td class="pad" style="padding-top:25px;width:100%;padding-right:0px;padding-left:0px;">
 																<div class="alignment" align="center" style="line-height:10px">
-																	<div class="fullWidth" style="max-width: 600px;"><img src="<?php echo $baseUrl."/images/logoReyciklando.png"?>" style="display: block; height: auto; border: 0; width: 100%;" width="600" alt="Image" title="Image" height="auto"></div>
+																	<!-- <div class="fullWidth" style="max-width: 600px;"><img src="<?php echo "https://reyciklando.reciclaje.cu/images/logoReyciklando.png"?>" style="display: block; height: auto; border: 0; width: 100%;" width="600" alt="Image" title="Image" height="auto"></div> -->
 																</div>
 															</td>
 														</tr>
@@ -162,7 +162,7 @@ $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['solicitud/detalles', 'i
 														<tr>
 															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
 																<div class="alignment" align="center" style="line-height:10px">
-																	<div style="max-width: 500px;"><img src="<?php echo $baseUrl."/images/logoReyciklando.png"?>" style="display: block; height: auto; border: 0; width: 100%;" width="252" alt="Image" title="Image" height="auto"></div>
+																	<div style="max-width: 500px;"><img src="<?php echo $baseUrl."https://reyciklando.reciclaje.cu/images/logoReyciklando.png"?>" style="display: block; height: auto; border: 0; width: 100%;" width="252" alt="Image" title="Image" height="auto"></div>
 																</div>
 															</td>
 														</tr>
@@ -218,7 +218,7 @@ $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['solicitud/detalles', 'i
 																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">Como representante de la institución <?= $solicitud->cliente->instalacion ?></p>
 																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">ante nuestros servicios le informamos por esta via que</p>
 																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;"> la solicitud (<?=$solicitud->id?>) ha cambiado al estado de </p>
-																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;"> ( <span style="color:#a8bf6f;font-size:14px;"><strong><?=$solicitud->tipoEstadoSolicitud->estado?>.</p></strong></span>) </p>
+																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;"> ( <span style="color:#a8bf6f;font-size:14px;"><strong><?=$solicitud->tipoEstadoSolicitud->estado?>.</strong></span>) </p>
 																	</div>
 																</div>
 															</td>

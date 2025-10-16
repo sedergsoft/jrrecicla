@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'vehiculo',
             'chofer',
            // 'status',
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
             'template'=>'{view}',
             'buttons' => [
                  

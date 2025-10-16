@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // ],
            
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
             'template'=>'{view}',
             'buttons' => [
                  

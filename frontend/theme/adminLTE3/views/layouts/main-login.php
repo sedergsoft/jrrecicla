@@ -14,6 +14,7 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="shortcut icon" href="/images/reyciklando.png">
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Reyciklando | Entrar</title>
@@ -22,7 +23,7 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
     <?php $this->registerCsrfMetaTags() ?>
     <?php $this->head() ?>
 </head>
-<body class="hold-transition login-page" style="min-height: 513.672px;background-image: url(&quot;/jrrecicla/frontend/web/images/bg1.jpg&quot;);background-size: cover;">
+<body class="hold-transition login-page" style="min-height: 513.672px;background-image: url(&quot;/images/bg1.jpg&quot;);background-size: cover;">
 <?php  $this->beginBody() ?>
 <div class="login-box">
     

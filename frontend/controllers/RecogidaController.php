@@ -102,6 +102,7 @@ class RecogidaController extends Controller
                 {
                     $solicitud->updateAttributes(['tipo_estado_solicitudid'=>3,'fecha_rec'=>date('Y-m-d')]);
                     SolicitudController::Notificarestado($solicitud,2);
+                    RecogidaController::NotificarTransportista($solicitud,$model);
                     return $this->redirect(['solicitud/detalles','id'=>$solicitud->id]);
      
                 }
@@ -169,5 +170,32 @@ class RecogidaController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+     public static function NotificarTransportista($solicitud,$model)
+    {
+        // if($tipo == 2)
+        // {
+        $recogida=Recogida::find()->andWhere(['status'=>1,'id'=>$model->id])->one();
+        return Yii::$app
+        ->mailer
+        ->compose(
+            ['html' => 'Recogida-html', 'text' => 'Recogida-text'],
+            ['solicitud' => $solicitud,'recogida'=>$recogida]
+        )
+        ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+        ->setTo($recogida->transportista->email)
+        ->setSubject('Solicitud de Recogida ' . Yii::$app->name)
+        ->send();
+      //  } 
+        // return Yii::$app
+        // ->mailer
+        // ->compose(
+        //     ['html' => 'Recogida-html', 'text' => 'recogida-text'],
+        //     ['solicitud' => $solicitud]
+        // )
+        // ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+        // ->setTo($solicitud->cliente->email)
+        // ->setSubject('Cambio de estado de la Solicitud ' . Yii::$app->name)
+        // ->send();  
     }
 }

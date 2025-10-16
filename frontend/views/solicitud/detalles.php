@@ -143,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
            
             
             //'status',
-            // ['class' => 'yii\grid\ActionColumn',
+            // ['class' => 'kartik\grid\ActionColumn',
             // 'template'=>'{view}',
             // 'buttons' => [
                  

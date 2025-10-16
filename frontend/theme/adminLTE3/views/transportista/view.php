@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
            // 'id',
             'vehiculo',
             'chofer',
-           // 'status',
+            'email',
+            'telefono',
         ],
           // 'enableEditMode'=>FALSE,
     'deleteOptions'=>[ // your ajax delete parameters

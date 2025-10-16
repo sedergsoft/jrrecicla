@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // ],
            
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
             'template'=>Yii::$app->user->identity->rolid==2?'{view}':'{view} {cancelar} {recepcionar}',
             'buttons' => [
                  

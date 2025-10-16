@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
              'value'=>function($model)
              {
 
-                 return $model->solicitud->cliente->instalacion;
+                 return $model->solicitud?$model->solicitud->cliente->instalacion:'';
              }
             ],
             [
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
              'value'=>function($model)
              {
 
-                 return $model->solicitudid;
+                 return $model->solicitud?$model->solicitudid:'';
              }
             ],
             'fecha_recogida',
@@ -88,13 +88,13 @@ $this->params['breadcrumbs'][] = $this->title;
              'value'=>function($model)
              {
 
-                 return $model->solicitud->tipoEstadoSolicitud->estado;
+                 return $model->solicitud?$model->solicitud->tipoEstadoSolicitud->estado:'';
              }
             ],
             //'transportistaid',
             //'solicitudid',
             //'status',
-            // ['class' => 'yii\grid\ActionColumn',
+            // ['class' => 'kartik\grid\ActionColumn',
             // 'template'=>'{view}',
             // 'buttons' => [
                  

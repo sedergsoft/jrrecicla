@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'read_status',
             //'read_at',
             //'status',
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
             'template'=>'{view}',
             'buttons' => [
                  

@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'solicitudid',
             'fecha_recogida',
             'status',
-            ['class' => 'yii\grid\ActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
             'template'=>'{view}',
             'buttons' => [
                  

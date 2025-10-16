@@ -293,18 +293,18 @@ class SolicitudController extends Controller
                     $solicitud->updateAttributes(['tipo_estado_solicitudid'=>2,'fecha_aprob'=>date('Y-m-d')]);
                     
                     $this->Notificarestado($solicitud);
-                    NotificationsController::Notifiar($solicitud);
+                  //  NotificationsController::Notifiar($solicitud);
                     return $this->redirect(['detalles','id'=>$solicitud->id]);
                     break;
                 case '1':
                     $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
                     $this->Notificarestado($solicitud);
-                    NotificationsController::Notifiar($solicitud);
+                   // NotificationsController::Notifiar($solicitud);
                     return $this->redirect(['solicitudes/todas']);
                     break;
                 case '3':
                     $solicitud->updateAttributes(['tipo_estado_solicitudid'=>5]);
-                    NotificationsController::Notifiar($solicitud);
+                  //  NotificationsController::Notifiar($solicitud);
                     $this->Notificarestado($solicitud);
                     return $this->redirect(['solicitudes/todas']);
                     break;
@@ -373,19 +373,19 @@ class SolicitudController extends Controller
                             }
                             if ($flag) {
                                 $transaction->commit();
-                                NotificationsController::Notifiar($model);
+                                //NotificationsController::Notifiar($model);
                                 return $this->redirect(['detalles', 'id' => $model->id]);
                             }
                         } catch (Exception $e) {
                             $transaction->rollBack();
-                            return print_r($e);
+                           // return print_r($e);
                             return $this->render('create', [
                                 'model' => $model,
                                 'Prod'=>$Prod,
                             ]);
                         }
                     }else{
-                        return print_r($model->errors);
+                       // return print_r($model->errors);
                         return $this->render('create', [
                             'model' => $model,
                             'Prod'=>$Prod,
@@ -538,6 +538,7 @@ public static function CuentaSolicitudTotal()
         ->setSubject('Cambio de estado de la Solicitud ' . Yii::$app->name)
         ->send();  
     }
+   
 
     public static function decimal($value)
     {
@@ -556,7 +557,7 @@ public static function CuentaSolicitudTotal()
         {
             $dataProvider->query->andWhere(['id'=>UserController::findModel(Yii::$app->user->getId())->empresa->id])->all();
         }
-        return $this->render('Solxcli', [
+        return $this->render('solxcli', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
